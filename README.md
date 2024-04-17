@@ -23,6 +23,6 @@ Here's where I mix technology with creativity to craft enchanting user experienc
 
 ## 🌐 Connect Across Dimensions
 - **[LinkedIn](https://www.linkedin.com/in/shahboz-munirov-49995428b/)**: Forge professional alliances
-- **[Twitter](https://twitter.com/shakhbozmn)**: 
-- **[Instagram](https://instagram.com/shahbozms)**:
-- **[If I am not available you can find me here](https://steamcommunity.com/id/rtx_usa/)**:
+- **[Twitter](https://twitter.com/shakhbozmn)**
+- **[Instagram](https://instagram.com/shahbozms)**
+- **[If I am not available you can find me here](https://steamcommunity.com/id/rtx_usa/)**
