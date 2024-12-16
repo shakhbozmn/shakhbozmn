@@ -2,7 +2,7 @@
 
 ## 🎨 About Me
 **Front-End Wizard** 🧙‍♂️ | **UI/UX Enthusiast** 🎨 | **Code Craftsman** 🛠️
-- 🚀 **Ask me About**: HTML, SCSS, React Native, Backend Architecture 
+- 🚀 **Ask me About**: HTML, SCSS, React Native, Expo, React & Next.js, Backend Architecture
 
 ## 🧙‍♂️ Greetings, Digital Adventurer!
 
