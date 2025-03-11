@@ -48,40 +48,6 @@ Here’s a breakdown of the tools and technologies I use to build amazing experi
 
 ---
 
-## 📱 Mobile Development with React Native, Fastlane, and RevenueCat  
-
-I specialize in building and deploying cross-platform mobile applications using **React Native**, **Fastlane**, and **RevenueCat**. Here’s how I approach it:  
-
-### **1. Cross-Platform Development**  
-- **React Native** allows me to write code once and deploy it on both **iOS** and **Android**, saving time and resources.  
-- **Expo** simplifies the development process with tools like over-the-air updates, pre-built components, and easy deployment.  
-
-### **2. Fastlane for Automation**  
-- **Fastlane** is my go-to tool for automating repetitive tasks like:  
-  - Building and signing apps.  
-  - Managing app store submissions.  
-  - Running tests and generating screenshots.  
-- This ensures a smooth and efficient deployment process, saving hours of manual work.  
-
-### **3. RevenueCat for Monetization**  
-- **RevenueCat** simplifies in-app purchases and subscription management.  
-- I integrate RevenueCat to:  
-  - Handle subscription logic effortlessly.  
-  - Provide analytics and insights into revenue streams.  
-  - Ensure a seamless user experience for monetization.  
-
-### **4. Optimized Performance**  
-- I focus on optimizing app performance by:  
-  - Minimizing re-renders using **React.memo** and **useMemo**.  
-  - Leveraging native modules for platform-specific optimizations.  
-  - Using libraries like **React Native Reanimated** for smooth animations.  
-
-### **5. Deployment Made Easy**  
-- With **Expo EAS (Expo Application Services)**, I streamline the build and deployment process.  
-- **Over-the-air (OTA) updates** ensure users always have the latest version without needing to download updates from the app store.  
-
----
-
 ## 🌐 Let’s Connect  
 
 I’m always open to collaboration, new opportunities, or just a friendly chat about tech. Here’s where you can find me:  
@@ -90,13 +56,6 @@ I’m always open to collaboration, new opportunities, or just a friendly chat a
 - **[Twitter](https://twitter.com/shakhbozmn)**: Follow me for tech updates and thoughts.  
 - **[Instagram](https://instagram.com/shahbozms)**: Check out my personal side.  
 - **[Steam](https://steamcommunity.com/id/rtx_usa/)**: If I’m not coding, I’m probably gaming here.  
-
----
-
-# 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=shakhbozmn&theme=default&hide_border=false&include_all_commits=true&count_private=true)<br/>
-![](https://github-readme-streak-stats.herokuapp.com/?user=shakhbozmn&theme=default&hide_border=false)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=shakhbozmn&theme=default&hide_border=false&include_all_commits=true&count_private=true&layout=compact)
 
 ### ✍️ Random Dev Quote
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=light)
