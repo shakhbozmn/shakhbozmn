@@ -22,32 +22,6 @@ I’m Shahboz Munirov, a passionate developer who loves crafting seamless digita
 
 ---
 
-## 🛠️ My Toolkit  
-
-Here’s a breakdown of the tools and technologies I use to build amazing experiences:  
-
-### **Web Development**  
-- **HTML5/CSS3**: Crafting the foundation and design of the web.  
-- **JavaScript (ES6+)**: Adding interactivity and dynamic features.  
-- **React & Next.js**: Building powerful, scalable, and SEO-friendly web applications.  
-
-### **Mobile Development**  
-- **React Native**: Developing cross-platform mobile apps with a native feel.  
-- **Expo**: Simplifying development with tools like over-the-air updates and pre-built components.  
-- **Fastlane**: Automating tedious tasks like builds, testing, and deployments.  
-- **RevenueCat**: Managing in-app subscriptions and monetization with ease.  
-
-### **Performance & Optimization**  
-- **Code Splitting**: Ensuring faster load times.  
-- **Memoization**: Reducing unnecessary re-renders.  
-- **Native Modules**: Leveraging platform-specific features for better performance.  
-
-### **UI/UX Design**  
-- **Figma**: Designing intuitive and visually appealing interfaces.  
-- **Usability Testing**: Ensuring the app meets user needs and expectations.  
-
----
-
 ## 🌐 Let’s Connect  
 
 I’m always open to collaboration, new opportunities, or just a friendly chat about tech. Here’s where you can find me:  
