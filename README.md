@@ -8,10 +8,6 @@ Front-End & Mobile Developer specializing in React Native, Expo, React, and Next
 ### Current Focus
 Enhancing expertise in React Native Core, performance optimization, and CI/CD workflows for mobile apps.
 
-## Contact
-
-Email: shakhbozmn@gmail.com
-LinkedIn: linkedin.com/in/shahboz-munirov-49995428b
 ---
 
 ## 🏆 GitHub Trophies
