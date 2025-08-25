@@ -1,35 +1,23 @@
-# Hello World! 🌍 I'm Shahboz Munirov 🚀
 
-## 🎨 About Me
-**Front-End Developer** | **Mobile App Enthusiast** | **UI/UX Advocate**  
-- 🚀 **Expertise**: HTML, SCSS, React Native, Expo, React & Next.js, Backend Architecture  
-- 📱 **Mobile Focus**: Building cross-platform apps with React Native, Fastlane, and RevenueCat  
+# Hi, I’m Shahboz Munirov
 
----
+## 💻 About 
 
-## 👋 Hey There!  
+Front-End & Mobile Developer specializing in React Native, Expo, React, and Next.js. Passionate about building cross-platform apps with clean UI/UX and scalable architecture.
 
-I’m Shahboz Munirov, a passionate developer who loves crafting seamless digital experiences. Whether it’s building responsive web applications or high-performance mobile apps, I thrive on turning ideas into reality.  
+### Current Focus
+Enhancing expertise in React Native Core, performance optimization, and CI/CD workflows for mobile apps.
 
-- 🌱 **Learning**: Deep diving into React Native Core, enhancing soft skills
-- 📫 **Contact**: Let’s chat! [shakhbozmn@gmail.com](mailto:shakhbozmn@gmail.com)  
-- 🎮 **Hobbies**: Gaming, exploring new music, and tinkering with side projects  
+## Contact
 
+Email: shakhbozmn@gmail.com
+LinkedIn: linkedin.com/in/shahboz-munirov-49995428b
 ---
 
 ## 🏆 GitHub Trophies
 ![](https://github-profile-trophy.vercel.app/?username=shakhbozmn&theme=default&no-frame=false&no-bg=true&margin-w=4)
 
 ---
-
-## 🌐 Let’s Connect  
-
-I’m always open to collaboration, new opportunities, or just a friendly chat about tech. Here’s where you can find me:  
-
-- **[LinkedIn](https://www.linkedin.com/in/shahboz-munirov-49995428b/)**: Let’s connect professionally.  
-- **[Twitter](https://twitter.com/shakhbozmn)**: Follow me for tech updates and thoughts.  
-- **[Instagram](https://instagram.com/shahbozms)**: Check out my personal side.  
-- **[Steam](https://steamcommunity.com/id/rtx_usa/)**: If I’m not coding, I’m probably gaming here.  
 
 ### ✍️ Random Dev Quote
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=light)
