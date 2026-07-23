@@ -1,13 +1,13 @@
 <div style="border:1px solid #888;border-radius:10px;overflow:hidden;margin-bottom:16px;">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/floating-banner-dark.gif?v=4">
-    <source media="(prefers-color-scheme: light)" srcset="assets/floating-banner-light.gif?v=4">
-    <img alt="Now widget — date, location, availability" src="assets/floating-banner-light.gif?v=4" style="display:block;width:100%;" />
+    <source media="(prefers-color-scheme: dark)" srcset="assets/floating-banner-dark.gif?v=3">
+    <source media="(prefers-color-scheme: light)" srcset="assets/floating-banner-light.gif?v=3">
+    <img alt="Now widget — date, location, availability" src="assets/floating-banner-light.gif?v=3" style="display:block;width:100%;" />
   </picture>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/terminal-loop-dark.gif?v=4">
-    <source media="(prefers-color-scheme: light)" srcset="assets/terminal-loop-light.gif?v=4">
-    <img alt="Terminal loop — whoami" src="assets/terminal-loop-light.gif?v=4" style="display:block;width:100%;" />
+    <source media="(prefers-color-scheme: dark)" srcset="assets/terminal-loop-dark.gif?v=3">
+    <source media="(prefers-color-scheme: light)" srcset="assets/terminal-loop-light.gif?v=3">
+    <img alt="Terminal loop — whoami" src="assets/terminal-loop-light.gif?v=3" style="display:block;width:100%;" />
   </picture>
 </div>
 
@@ -61,50 +61,48 @@
 <!-- FLIGHT_RECORDER:START -->
 **Latest public transmission:** [feathers-board](https://github.com/shakhbozmn/feathers-board) · JavaScript · updated 2026-07-19
 <!-- FLIGHT_RECORDER:END -->
-
-<sub align="center">last transmission received: <b>2026-07-24</b> · scan refreshes daily via Action</sub>
 ## Connections
 
 <div align="center">
 
-<sub><code>$ ping shakhbozms --channels -v</code></sub>
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=14&duration=2000&pause=1000&color=0B1220&center=true&vCenter=true&width=440&lines=%24+ping+shakhbozms+--channels+-v;scanning+open+ports...;4+channels+found" alt="typing" />
+
+<sub><b>PORT</b>&emsp;<b>SERVICE</b>&emsp;&emsp;&emsp;<b>STATE</b>&emsp;<b>LATENCY</b></sub>
 
 <details>
-<summary>📡 &nbsp;<b>telegram</b> &nbsp;<code>t.me/shakhbozms</code> &nbsp;<img src="https://img.shields.io/badge/reply-%E2%89%A42h-26A5E4?style=flat-square&logo=telegram&logoColor=white" /></summary>
+<summary>📡&nbsp; <code>9000/tcp</code>&nbsp; <b>telegram</b>&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/latency-%E2%89%A42h-26A5E4?style=flat-square&logo=telegram&logoColor=white" /></summary>
 <br>
 
-fastest lane — good for quick questions, async back-and-forth, or just saying hi.
-
-**[→ open chat](https://t.me/shakhbozms)**
+fastest lane — quick questions, async back-and-forth, just saying hi.
+**[→ open chat](https://t.me/shakhbozms)** · `t.me/shakhbozms`
 </details>
 
 <details>
-<summary>✉️ &nbsp;<b>email</b> &nbsp;<code>shakhbozmn@gmail.com</code> &nbsp;<img src="https://img.shields.io/badge/reply-%E2%89%A424h-EA4335?style=flat-square&logo=gmail&logoColor=white" /></summary>
+<summary>✉️&nbsp; <code>0025/tcp</code>&nbsp; <b>email</b>&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/latency-%E2%89%A424h-EA4335?style=flat-square&logo=gmail&logoColor=white" /></summary>
 <br>
 
-best for anything that needs detail — proposals, longer technical asks, formal intros.
-
-**[→ send email](mailto:shakhbozmn@gmail.com)**
+best for detail — proposals, longer technical asks, formal intros.
+**[→ send email](mailto:shakhbozmn@gmail.com)** · `shakhbozmn@gmail.com`
 </details>
 
 <details>
-<summary>💼 &nbsp;<b>linkedin</b> &nbsp;<code>/in/shakhbozms</code> &nbsp;<img src="https://img.shields.io/badge/reply-by%20appt-0A66C2?style=flat-square&logo=linkedin&logoColor=white" /></summary>
+<summary>💼&nbsp; <code>0443/tcp</code>&nbsp; <b>linkedin</b>&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/latency-by%20appt-0A66C2?style=flat-square&logo=linkedin&logoColor=white" /></summary>
 <br>
 
-for work-facing stuff — roles, collabs, recommendations. I'm slower here on purpose.
-
-**[→ connect](https://linkedin.com/in/shakhbozms)**
+work-facing — roles, collabs, recommendations. Slower here on purpose.
+**[→ connect](https://linkedin.com/in/shakhbozms)** · `/in/shakhbozms`
 </details>
 
 <details>
-<summary>🌐 &nbsp;<b>website</b> &nbsp;<code>shahbozms.uz</code> &nbsp;<img src="https://img.shields.io/badge/format-long--form-34A853?style=flat-square&logo=googlechrome&logoColor=white" /></summary>
+<summary>🌐&nbsp; <code>0080/tcp</code>&nbsp; <b>website</b>&nbsp;&nbsp;&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/format-long--form-34A853?style=flat-square&logo=googlechrome&logoColor=white" /></summary>
 <br>
 
-writeups, project deep-dives, the stuff too long for a chat message.
-
-**[→ visit](https://shahbozms.uz)**
+writeups, project deep-dives — the stuff too long for a chat message.
+**[→ visit](https://shahbozms.uz)** · `shahbozms.uz`
 </details>
 
-<sub>tap a row to expand · reply shape decided per channel</sub>
+<!-- LAST_PING:START -->
+<sub>last transmission received: <b>2026-07-19</b> · scan refreshes daily via Action</sub>
+<!-- LAST_PING:END -->
 
 </div>
