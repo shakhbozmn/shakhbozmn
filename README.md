@@ -65,12 +65,12 @@
 
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=14&duration=2000&pause=1000&color=0B1220&center=true&vCenter=true&width=440&lines=%24+ping+shakhbozms+--channels+-v;scanning+open+ports...;4+channels+found" alt="typing" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=14&duration=2000&pause=1000&color=FFFFFF&center=true&vCenter=true&width=440&lines=%24+ping+shakhbozms+--channels+-v;scanning+open+ports...;4+channels+found" alt="typing" />
 
 <sub><b>PORT</b>&emsp;<b>SERVICE</b>&emsp;&emsp;&emsp;<b>STATE</b>&emsp;<b>LATENCY</b></sub>
 
 <details>
-<summary>📡&nbsp; <code>9000/tcp</code>&nbsp; <b>telegram</b>&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/latency-%E2%89%A42h-26A5E4?style=flat-square&logo=telegram&logoColor=white" /></summary>
+<summary><img src="https://cdn.simpleicons.org/telegram/26A5E4" width="16" height="16" />&nbsp; <code>9000/tcp</code>&nbsp; <b>telegram</b>&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/latency-%E2%89%A42h-26A5E4?style=flat-square&logo=telegram&logoColor=white" /></summary>
 <br>
 
 fastest lane — quick questions, async back-and-forth, just saying hi.
@@ -78,7 +78,7 @@ fastest lane — quick questions, async back-and-forth, just saying hi.
 </details>
 
 <details>
-<summary>✉️&nbsp; <code>0025/tcp</code>&nbsp; <b>email</b>&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/latency-%E2%89%A424h-EA4335?style=flat-square&logo=gmail&logoColor=white" /></summary>
+<summary><img src="https://cdn.simpleicons.org/gmail/EA4335" width="16" height="16" />&nbsp; <code>0025/tcp</code>&nbsp; <b>email</b>&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/latency-%E2%89%A424h-EA4335?style=flat-square&logo=gmail&logoColor=white" /></summary>
 <br>
 
 best for detail — proposals, longer technical asks, formal intros.
@@ -86,7 +86,7 @@ best for detail — proposals, longer technical asks, formal intros.
 </details>
 
 <details>
-<summary>💼&nbsp; <code>0443/tcp</code>&nbsp; <b>linkedin</b>&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/latency-by%20appt-0A66C2?style=flat-square&logo=linkedin&logoColor=white" /></summary>
+<summary><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="16" height="16" />&nbsp; <code>0443/tcp</code>&nbsp; <b>linkedin</b>&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/latency-by%20appt-0A66C2?style=flat-square&logo=linkedin&logoColor=white" /></summary>
 <br>
 
 work-facing — roles, collabs, recommendations. Slower here on purpose.
@@ -94,7 +94,7 @@ work-facing — roles, collabs, recommendations. Slower here on purpose.
 </details>
 
 <details>
-<summary>🌐&nbsp; <code>0080/tcp</code>&nbsp; <b>website</b>&nbsp;&nbsp;&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/format-long--form-34A853?style=flat-square&logo=googlechrome&logoColor=white" /></summary>
+<summary><img src="https://cdn.simpleicons.org/googlechrome/4285F4" width="16" height="16" />&nbsp; <code>0080/tcp</code>&nbsp; <b>website</b>&nbsp;&nbsp;&nbsp; <img src="https://img.shields.io/badge/OPEN-brightgreen?style=flat-square" />&nbsp; <img src="https://img.shields.io/badge/format-long--form-34A853?style=flat-square&logo=googlechrome&logoColor=white" /></summary>
 <br>
 
 writeups, project deep-dives — the stuff too long for a chat message.
