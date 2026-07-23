@@ -2,7 +2,9 @@ name: Refresh hero GIFs
 
 on:
   schedule:
-    - cron: '*/5 * * * *'   # every 5 minutes — keep the now-widget clock fresh
+    # Every 5 minutes — keeps the now-widget clock fresh on the README.
+    # Cron parsed at every push to .github/workflows/refresh-hero.yml.
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
