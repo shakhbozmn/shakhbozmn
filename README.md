@@ -61,44 +61,14 @@
 <!-- FLIGHT_RECORDER:START -->
 **Latest public transmission:** [feathers-board](https://github.com/shakhbozmn/feathers-board) · JavaScript · updated 2026-07-19
 <!-- FLIGHT_RECORDER:END -->
-
 ## Connections
 
-<table align="center" style="border-collapse:separate;border-spacing:10px">
-  <tr>
-    <td>
-      <a href="https://t.me/shahbozms" target="_blank" rel="noopener" style="display:block;width:230px;padding:14px 18px;border:1px solid #26A5E4;border-left:6px solid #26A5E4;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#f6fbfd;font-family:ui-monospace,monospace;font-size:13px">
-        <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">📨 telegram</div>
-        <div style="opacity:.7;margin-top:2px">reply ≤ 2h</div>
-        <div style="margin-top:6px">▌▌▌▌▌▌▌▌</div>
-        <div style="margin-top:6px;color:#0b1220">t.me/shakhbozms →</div>
-      </a>
-    </td>
-    <td>
-      <a href="mailto:shakhbozmn@gmail.com" style="display:block;width:230px;padding:14px 18px;border:1px solid #EA4335;border-left:6px solid #EA4335;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#fef6f4;font-family:ui-monospace,monospace;font-size:13px">
-        <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">✉ email</div>
-        <div style="opacity:.7;margin-top:2px">reply ≤ 24h</div>
-        <div style="margin-top:6px">▌▌▌▌▌</div>
-        <div style="margin-top:6px;color:#0b1220">shakhbozmn@gmail.com →</div>
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://linkedin.com/in/shakhbozms" target="_blank" rel="noopener" style="display:block;width:230px;padding:14px 18px;border:1px solid #0A66C2;border-left:6px solid #0A66C2;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#f4f8fd;font-family:ui-monospace,monospace;font-size:13px">
-        <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">in linkedin</div>
-        <div style="opacity:.7;margin-top:2px">DMs by appt.</div>
-        <div style="margin-top:6px">▌▌▌▌</div>
-        <div style="margin-top:6px;color:#0b1220">/in/shakhbozms →</div>
-      </a>
-    </td>
-    <td>
-      <a href="https://shahbozms.uz" target="_blank" rel="noopener" style="display:block;width:230px;padding:14px 18px;border:1px solid #34A853;border-left:6px solid #34A853;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#f4fbf6;font-family:ui-monospace,monospace;font-size:13px">
-        <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">▸ website</div>
-        <div style="opacity:.7;margin-top:2px">long-form only</div>
-        <div style="margin-top:6px">▌▌▌▌▌</div>
-        <div style="margin-top:6px;color:#0b1220">shahbozms.uz →</div>
-      </a>
-    </td>
-  </tr>
-</table>
+<pre align="center" style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#0b1220;line-height:1.6;background:transparent;border:0;margin:0">
+$ <span style="opacity:.7">ping shakhbozms --channels</span>
+└─ <a href="https://t.me/shakhbozms"             style="color:#26A5E4;text-decoration:none;font-weight:600">telegram</a>   t.me/shakhbozms    <span style="opacity:.55">←  ≤ 2h</span>
+└─ <a href="mailto:shakhbozmn@gmail.com"         style="color:#EA4335;text-decoration:none;font-weight:600">email</a>      shakhbozmn@gmail   <span style="opacity:.55">←  ≤ 24h</span>
+└─ <a href="https://linkedin.com/in/shakhbozms"   style="color:#0A66C2;text-decoration:none;font-weight:600">linkedin</a>   /in/shakhbozms     <span style="opacity:.55">←  by-appt</span>
+└─ <a href="https://shahbozms.uz"               style="color:#34A853;text-decoration:none;font-weight:600">website</a>    shahbozms.uz       <span style="opacity:.55">←  long-form</span>
+</pre>
+
+<sub align="center">tap a channel · reply shape decided per row</sub>
