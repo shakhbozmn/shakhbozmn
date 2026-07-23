@@ -1,13 +1,13 @@
 <div style="border:1px solid #888;border-radius:10px;overflow:hidden;margin-bottom:16px;">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/floating-banner-dark.gif?v=3">
-    <source media="(prefers-color-scheme: light)" srcset="assets/floating-banner-light.gif?v=3">
-    <img alt="Now widget — date, location, availability" src="assets/floating-banner-light.gif?v=3" style="display:block;width:100%;" />
+    <source media="(prefers-color-scheme: dark)" srcset="assets/floating-banner-dark.gif?v=4">
+    <source media="(prefers-color-scheme: light)" srcset="assets/floating-banner-light.gif?v=4">
+    <img alt="Now widget — date, location, availability" src="assets/floating-banner-light.gif?v=4" style="display:block;width:100%;" />
   </picture>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/terminal-loop-dark.gif?v=3">
-    <source media="(prefers-color-scheme: light)" srcset="assets/terminal-loop-light.gif?v=3">
-    <img alt="Terminal loop — whoami" src="assets/terminal-loop-light.gif?v=3" style="display:block;width:100%;" />
+    <source media="(prefers-color-scheme: dark)" srcset="assets/terminal-loop-dark.gif?v=4">
+    <source media="(prefers-color-scheme: light)" srcset="assets/terminal-loop-light.gif?v=4">
+    <img alt="Terminal loop — whoami" src="assets/terminal-loop-light.gif?v=4" style="display:block;width:100%;" />
   </picture>
 </div>
 
@@ -61,14 +61,50 @@
 <!-- FLIGHT_RECORDER:START -->
 **Latest public transmission:** [feathers-board](https://github.com/shakhbozmn/feathers-board) · JavaScript · updated 2026-07-19
 <!-- FLIGHT_RECORDER:END -->
+
+<sub align="center">last transmission received: <b>DATE_PLACEHOLDER</b> · scan refreshes daily via Action</sub>
 ## Connections
 
-<pre align="center" style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#0b1220;line-height:1.6;background:transparent;border:0;margin:0">
-$ <span style="opacity:.7">ping shakhbozms --channels</span>
-└─ <a href="https://t.me/shakhbozms"             style="color:#26A5E4;text-decoration:none;font-weight:600">telegram</a>   t.me/shakhbozms    <span style="opacity:.55">←  ≤ 2h</span>
-└─ <a href="mailto:shakhbozmn@gmail.com"         style="color:#EA4335;text-decoration:none;font-weight:600">email</a>      shakhbozmn@gmail   <span style="opacity:.55">←  ≤ 24h</span>
-└─ <a href="https://linkedin.com/in/shakhbozms"   style="color:#0A66C2;text-decoration:none;font-weight:600">linkedin</a>   /in/shakhbozms     <span style="opacity:.55">←  by-appt</span>
-└─ <a href="https://shahbozms.uz"               style="color:#34A853;text-decoration:none;font-weight:600">website</a>    shahbozms.uz       <span style="opacity:.55">←  long-form</span>
-</pre>
+<div align="center">
 
-<sub align="center">tap a channel · reply shape decided per row</sub>
+<sub><code>$ ping shakhbozms --channels -v</code></sub>
+
+<details>
+<summary>📡 &nbsp;<b>telegram</b> &nbsp;<code>t.me/shakhbozms</code> &nbsp;<img src="https://img.shields.io/badge/reply-%E2%89%A42h-26A5E4?style=flat-square&logo=telegram&logoColor=white" /></summary>
+<br>
+
+fastest lane — good for quick questions, async back-and-forth, or just saying hi.
+
+**[→ open chat](https://t.me/shakhbozms)**
+</details>
+
+<details>
+<summary>✉️ &nbsp;<b>email</b> &nbsp;<code>shakhbozmn@gmail.com</code> &nbsp;<img src="https://img.shields.io/badge/reply-%E2%89%A424h-EA4335?style=flat-square&logo=gmail&logoColor=white" /></summary>
+<br>
+
+best for anything that needs detail — proposals, longer technical asks, formal intros.
+
+**[→ send email](mailto:shakhbozmn@gmail.com)**
+</details>
+
+<details>
+<summary>💼 &nbsp;<b>linkedin</b> &nbsp;<code>/in/shakhbozms</code> &nbsp;<img src="https://img.shields.io/badge/reply-by%20appt-0A66C2?style=flat-square&logo=linkedin&logoColor=white" /></summary>
+<br>
+
+for work-facing stuff — roles, collabs, recommendations. I'm slower here on purpose.
+
+**[→ connect](https://linkedin.com/in/shakhbozms)**
+</details>
+
+<details>
+<summary>🌐 &nbsp;<b>website</b> &nbsp;<code>shahbozms.uz</code> &nbsp;<img src="https://img.shields.io/badge/format-long--form-34A853?style=flat-square&logo=googlechrome&logoColor=white" /></summary>
+<br>
+
+writeups, project deep-dives, the stuff too long for a chat message.
+
+**[→ visit](https://shahbozms.uz)**
+</details>
+
+<sub>tap a row to expand · reply shape decided per channel</sub>
+
+</div>

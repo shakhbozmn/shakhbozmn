@@ -1,11 +1,17 @@
 name: Refresh hero GIFs
 
+# Triggers:
+#   schedule        — best-effort, every 5 min. Cron can fail silently.
+#   workflow_dispatch — manual trigger via `gh workflow run`.
+#   repository_dispatch — external cron (cron-job.org / UptimeRobot / etc.) hits
+#     POST https://api.github.com/repos/shakhbozmn/shakhbozmn/dispatches
+#     with `{"event_type": "tick"}`. Use this for true 1-min live clock.
 on:
   schedule:
-    # Every 5 minutes — keeps the now-widget clock fresh on the README.
-    # Cron parsed at every push to .github/workflows/refresh-hero.yml.
     - cron: "*/5 * * * *"
   workflow_dispatch:
+  repository_dispatch:
+    types: [tick]
 
 permissions:
   contents: write
@@ -32,17 +38,19 @@ jobs:
           sudo apt-get install -y -qq fonts-dejavu-core
           pip install --quiet --no-cache-dir 'Pillow>=10,<13'
 
-      - name: Render hero GIFs
+      - name: Render hero GIFs + stamp README date
+        # The Python script also rewrites DATE_PLACEHOLDER in README.md
+        # with today's UTC+5 date so the "last transmission" line updates.
         run: python3 scripts/build-hero-gif.py
 
-      - name: Commit changed GIFs
+      - name: Commit changes
         run: |
-          if git diff --quiet -- assets/; then
-            echo "Hero GIFs unchanged"
+          if git diff --quiet -- assets/ README.md; then
+            echo "No changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/
-          git commit -m "chore: refresh hero GIFs ($(date -u +%FT%TZ))"
+          git add assets/ README.md
+          git commit -m "chore: refresh hero clock + last-transmission date ($(date -u +%FT%TZ))"
           git push

@@ -352,6 +352,17 @@ def main():
         now=now_utc,
     )
 
+    # Update the "last transmission received" date in README. Pure
+    # placeholder swap so the workflow doesn't need extra script logic.
+    readme = Path("README.md")
+    if readme.exists():
+        text = readme.read_text()
+        date_str = now_utc.strftime("%Y-%m-%d")
+        new = text.replace("DATE_PLACEHOLDER", date_str)
+        if new != text:
+            readme.write_text(new)
+            print(f"readme: set last transmission date to {date_str}")
+
     print("done")
 
 
