@@ -1,0 +1,16 @@
+{
+  "file_hashes": {
+    "README.md": "d23e156d2f0ccfe23b26ccb887d01cf362428250c51959e2d4ad570d72bcd21f",
+    "scripts/update-flight-recorder.mjs": "29da53584753d003bc824c1eaf1dc89e44e9f1f7d90227110ead20187137f8f2",
+    "scripts/update-flight-recorder.test.mjs": "60e515ade0b108d407f9e21e29149bfe2beb02218d961b13107fb63afb24a816"
+  },
+  "indexed_at_commit": "8d9d2b331890ae8387603b6becbeab9bdd60250f",
+  "indexed_at_timestamp": "2026-07-23T19:45:03.772879+00:00",
+  "schema_version": 3,
+  "stats": {
+    "total_edges": 21,
+    "total_files": 3,
+    "total_nodes": 25
+  },
+  "vexp_version": "2.2.2"
+}
