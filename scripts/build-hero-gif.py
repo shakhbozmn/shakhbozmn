@@ -22,6 +22,26 @@ PROMPT_FONT_SIZE = 22
 FONT_REG = "/System/Library/Fonts/SFNSMono.ttf"
 FONT_HEAVY = "/System/Library/Fonts/SFNSMono.ttf"
 
+# Portable font loader: try macOS SFNSMono first, then fall through common
+# Linux paths, then fall back to Pillow's bitmap default. Keeps the script
+# runnable on GitHub's ubuntu-latest runners as well as locally on macOS.
+FONT_CANDIDATES = [
+    "/System/Library/Fonts/SFNSMono.ttf",
+    "/System/Library/Fonts/Menlo.ttc",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+    "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf",
+]
+
+
+def _load_mono(size):
+    for path in FONT_CANDIDATES:
+        try:
+            return ImageFont.truetype(path, size)
+        except OSError:
+            continue
+    return ImageFont.load_default()
+
 PROMPT = "$ whoami"
 RESPONSE_LINE_1 = "Shahboz Munirov"
 # Long role sentence, pre-wrapped into two visual lines so the GIF can type
@@ -76,8 +96,8 @@ def lerp_color(c1, c2, t):
 
 def render_terminal(bg, prompt_color, response_color, out_path):
     """Loops: `$ whoami` → 4 typed lines letter-by-letter → holds."""
-    font_prompt = ImageFont.truetype(FONT_HEAVY, PROMPT_FONT_SIZE)
-    font_response = ImageFont.truetype(FONT_REG, RESPONSE_FONT_SIZE)
+    font_prompt = _load_mono(PROMPT_FONT_SIZE)
+    font_response = _load_mono(RESPONSE_FONT_SIZE)
 
     # Phase frame budgets. Hold phases are short so PIL doesn't dedup
     # consecutive identical frames. Cursor alternates every frame so even
@@ -180,8 +200,8 @@ def render_terminal(bg, prompt_color, response_color, out_path):
 def render_now_widget(bg, fg, muted, accent, out_path, now=None):
     """Bordered card with marching-ants border, pulsing pin halo, wiggling coords,
     spinner. Three lines: date, location, status (real time UTC+5)."""
-    font = ImageFont.truetype(FONT_REG, NW_FONT_SIZE)
-    font_dot = ImageFont.truetype(FONT_HEAVY, NW_FONT_SIZE + 2)
+    font = _load_mono(NW_FONT_SIZE)
+    font_dot = _load_mono(NW_FONT_SIZE + 2)
 
     if now is None:
         now = datetime.now(timezone.utc).astimezone(LOCAL_TZ)
