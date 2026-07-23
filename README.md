@@ -5,72 +5,63 @@ Current roles — **Software Engineer at EPAM Systems · Product Engineer at Gne
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/product-flight-deck-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="assets/product-flight-deck-light.svg">
-  <img alt="Shahboz Munirov — Software Engineer at EPAM Systems and Product Engineer at Gnezdo Travel, building thoughtful products from Tashkent" src="assets/product-flight-deck-light.svg" width="100%">
+  <img alt="Shahboz Munirov — Software Engineer at EPAM Systems and Product Engineer at Gnezdo Travel, building travel-tech products from Tashkent" src="assets/product-flight-deck-light.svg" width="100%">
 </picture>
 
-I turn product ambiguity into software people use — across mobile experiences, web products, backend systems, and delivery pipelines.
+Software engineer at EPAM, product engineer at Gnezdo Travel. I write the boring glue between mobile UX and the queue nobody wants to touch. Expo unless you give me a reason not to — currently rewriting the channel-sync worker, July 2026.
 
-[Explore products](#shipped-missions) · [Inspect code](#systems-i-build) · [Website](https://shahbozms.uz/) · [Connect](#open-channel)
+[Current focus](#current-focus) · [Shipped](#shipped) · [How I work](#how-i-work) · [Reach me](#reach-me)
 
-## 60-second scan
+## Current focus
 
-- Based in Tashkent, Uzbekistan.
-- Software Engineer at EPAM Systems; Product Engineer building Gnezdo Travel.
-- Product scope: mobile, web, backend, integrations, and delivery systems.
-- Core toolkit: TypeScript, React Native, Expo, React, Next.js, Node.js, FeathersJS, MongoDB, Redis/BullMQ, Firebase, Docker, CI/CD.
-- Strength: turn ambiguous product problems into reliable cross-platform systems.
+Gnezdo Travel — booking and channel-manager work for short-stay operators. This quarter: stabilizing the nightly availability reconciliation, tightening the FeathersJS service surface, and getting the BullMQ workers into TypeScript. The hard part isn't the code; it's the operators' expectations and Booking.com's rate limits in the same sentence.
 
-## Current mission
+## Shipped
 
-**Gnezdo Travel** — a travel-tech product spanning booking, property operations, and channel integrations.
-
-`Product engineering` · `React / Next.js` · `FeathersJS` · `MongoDB` · `Queues`
-
-## Shipped missions
-
-**01 / feathers-board — Developer tools**
-Interactive FeathersJS v5 API playground in embedded and standalone modes, with service discovery, schema visualization, dynamic requests, and response inspection.
+**feathers-board — developer tools**
+FeathersJS v5 API playground. Built it because debugging Feathers services from a terminal was eating my evenings. Embedded mode came from wanting it in our own admin panel.
 [Source](https://github.com/shakhbozmn/feathers-board) · [Package](https://www.npmjs.com/package/feathers-playground) · [Docs](https://github.com/shakhbozmn/feathers-board/blob/main/USAGE.md)
 
-**02 / 4work — Marketplace systems**
-Portfolio marketplace built with Django, PostgreSQL, and Redis; shows client/freelancer roles, project/application lifecycle, RBAC boundaries, Docker, and CI.
+**4work — marketplace systems**
+Two-sided portfolio marketplace. The interesting part was modeling applications as a state machine — RBAC fell out of that. Django, Postgres, Redis, Docker, CI — the boring parts I learned from.
 [Source](https://github.com/shakhbozmn/4work)
 
-**03 / Scrap Fortress — Game systems**
-Unity/C# third-person survival tower-defense project with escalating waves, scrap economy, tower placement/upgrades, and complete game loop.
+**Scrap Fortress — game systems**
+Unity/C# tower defense. My first Unity project that survived contact with a real player. Tower upgrade math took longer than the wave system; Unity's animation stack is criminally underdocumented.
 [Source](https://github.com/shakhbozmn/scrap-fortress)
 
-**04 / Widly — Event products**
-Express/Pug/SCSS event-planning application organized around MVC and event CRUD flows.
-[Source](https://github.com/shakhbozmn/widly)
+## How I work
 
-## Systems I build
+**Build** — React Native + Expo for Gnezdo's operator apps. I'd rather ship one well-typed screen than five fetch calls across the stack.
 
-**BUILD** — product UX, React Native mobile, responsive web.
-**CONNECT** — APIs, auth, integrations, realtime behavior.
-**OPERATE** — queues, storage, observability, CI/CD.
+**Connect** — FeathersJS services between the operator app, Booking.com, and our internal admin. Realtime hooks beat polling, almost always.
+
+**Operate** — BullMQ workers on Redis for nightly reconciliation and webhook retries. Observability before cleverness.
 
 ## Flight recorder
-
-Tracks latest public work from featured repositories.
 
 <!-- FLIGHT_RECORDER:START -->
 **Latest public transmission:** [feathers-board](https://github.com/shakhbozmn/feathers-board) · JavaScript · updated 2026-07-19
 <!-- FLIGHT_RECORDER:END -->
 
-## Off-duty telemetry
+## Off the clock
 
-- CS2 strategy and team coordination.
-- Tennis competition.
-- Travel for places, food, and product observations.
-- Game systems and polished UI motion.
+CS2 — IGL for a small stack. Currently grinding Faceit level 9.
 
-## Open channel
+Tennis — UTN league on weekends. Working on second-serve consistency.
 
-- [Website](https://shahbozms.uz/)
-- [LinkedIn](https://linkedin.com/in/shahbozms)
-- [Telegram](https://t.me/shahbozms)
-- [Email](mailto:shakhbozmn@gmail.com)
-- [Instagram](https://instagram.com/shahbozms)
+Travel — collecting airport-lounge UX notes. Last trip: Almaty.
 
-Building thoughtful products from Tashkent to anywhere.
+## Reach me
+
+[Telegram](https://t.me/shakhbozms) — fastest.
+
+[Email](mailto:shakhbozmn@gmail.com) — for anything serious.
+
+[LinkedIn](https://linkedin.com/in/shakhbozms) — recruiting only.
+
+[Website](https://shahbozms.uz/) — writing and product notes.
+
+---
+
+Last updated July 2026. Building from Tashkent, shipping to three time zones.
