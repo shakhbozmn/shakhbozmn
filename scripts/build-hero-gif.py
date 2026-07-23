@@ -234,9 +234,6 @@ def render_now_widget(bg, fg, muted, accent, out_path, now=None):
         phase = (i / n_frames) * 2 * math.pi
         pulse = (math.sin(phase) + 1) / 2  # 0..1
 
-        # Marching-ants border
-        draw_animated_border(draw, fg, accent, i)
-
         # Line 1: date with blinking cursor block
         cursor_visible = (i % 14) < 10
         line1 = date_text + ("   ▌" if cursor_visible else "   ")
@@ -300,26 +297,21 @@ def main():
     out_dir = Path("assets")
     out_dir.mkdir(exist_ok=True)
 
+    now_utc = datetime.now(timezone.utc).astimezone(LOCAL_TZ)
+
+    # Terminal loop — dark
     render_terminal(
-        bg=(12, 12, 14),
+        bg=(18, 18, 22),
         prompt_color=(245, 245, 247),
         response_color=(170, 170, 178),
         out_path=out_dir / "terminal-loop-dark.gif",
     )
+    # Terminal loop — light
     render_terminal(
-        bg=(250, 250, 252),
+        bg=(245, 245, 248),
         prompt_color=(20, 20, 22),
         response_color=(95, 95, 100),
         out_path=out_dir / "terminal-loop-light.gif",
-    )
-
-    # Now widget — light
-    render_now_widget(
-        bg=(245, 245, 248),
-        fg=(20, 20, 22),
-        muted=(95, 95, 100),
-        accent=(0, 113, 227),
-        out_path=out_dir / "floating-banner-light.gif",
     )
     # Now widget — dark
     render_now_widget(
@@ -328,6 +320,16 @@ def main():
         muted=(150, 150, 158),
         accent=(80, 160, 255),
         out_path=out_dir / "floating-banner-dark.gif",
+        now=now_utc,
+    )
+    # Now widget — light
+    render_now_widget(
+        bg=(245, 245, 248),
+        fg=(20, 20, 22),
+        muted=(95, 95, 100),
+        accent=(0, 113, 227),
+        out_path=out_dir / "floating-banner-light.gif",
+        now=now_utc,
     )
 
     print("done")

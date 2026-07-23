@@ -1,16 +1,15 @@
-# Shahboz Munirov
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/floating-banner-dark.gif">
-  <source media="(prefers-color-scheme: light)" srcset="assets/floating-banner-light.gif">
-  <img alt="Now widget — date, location, availability" src="assets/floating-banner-light.gif" width="100%">
-</picture>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/terminal-loop-dark.gif">
-  <source media="(prefers-color-scheme: light)" srcset="assets/terminal-loop-light.gif">
-  <img alt="Terminal loop — whoami" src="assets/terminal-loop-light.gif" width="100%">
-</picture>
+<div style="border:1px solid #888;border-radius:10px;overflow:hidden;margin-bottom:16px;">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/floating-banner-dark.gif?v=2">
+    <source media="(prefers-color-scheme: light)" srcset="assets/floating-banner-light.gif?v=2">
+    <img alt="Now widget — date, location, availability" src="assets/floating-banner-light.gif?v=2" style="display:block;width:100%;" />
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/terminal-loop-dark.gif?v=2">
+    <source media="(prefers-color-scheme: light)" srcset="assets/terminal-loop-light.gif?v=2">
+    <img alt="Terminal loop — whoami" src="assets/terminal-loop-light.gif?v=2" style="display:block;width:100%;" />
+  </picture>
+</div>
 
 ---
 
@@ -48,12 +47,14 @@
 
 ## Shipped
 
-| Project | Stack | Links |
-| --- | --- | --- |
-| **[feathers-board](https://github.com/shakhbozmn/feathers-board)** — FeathersJS v5 API playground. | ![TypeScript](https://cdn.simpleicons.org/typescript/3178C6) ![FeathersJS](https://feathersjs.com/logo.svg) | [repo](https://github.com/shakhbozmn/feathers-board) · [npm](https://www.npmjs.com/package/feathers-playground) |
-| **[4work](https://github.com/shakhbozmn/4work)** — Two-sided portfolio marketplace. | ![Next.js](https://cdn.simpleicons.org/nextdotjs/000000) ![TypeScript](https://cdn.simpleicons.org/typescript/3178C6) | [repo](https://github.com/shakhbozmn/4work) |
-| **[Scrap Fortress](https://github.com/shakhbozmn/scrap-fortress)** — Unity tower defense. | ![Unity](https://cdn.simpleicons.org/unity/FFFFFF) ![C#](https://cdn.simpleicons.org/dotnet/512BD4) | [repo](https://github.com/shakhbozmn/scrap-fortress) |
-| **[flight-delay-prediction](https://github.com/shakhbozmn/flight-delay-prediction)** — ML pipeline classifying U.S. flight records as high/normal delay risk. | ![Python](https://cdn.simpleicons.org/python/3776AB) ![scikit-learn](https://cdn.simpleicons.org/scikitlearn/F7931E) ![Streamlit](https://cdn.simpleicons.org/streamlit/FF4B4B) | [repo](https://github.com/shakhbozmn/flight-delay-prediction) |
+- **[feathers-board](https://github.com/shakhbozmn/feathers-board)** — FeathersJS v5 playground.
+  <img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript" height="20" /> <img src="https://feathersjs.com/logo.svg" alt="FeathersJS" height="20" /> · [repo](https://github.com/shakhbozmn/feathers-board) · [npm](https://www.npmjs.com/package/feathers-playground)
+- **[4work](https://github.com/shakhbozmn/4work)** — Two-sided portfolio marketplace.
+  <img src="https://cdn.simpleicons.org/nextdotjs/000000" alt="Next.js" height="20" /> <img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript" height="20" /> · [repo](https://github.com/shakhbozmn/4work)
+- **[Scrap Fortress](https://github.com/shakhbozmn/scrap-fortress)** — Unity tower defense.
+  <img src="https://cdn.simpleicons.org/unity/FFFFFF" alt="Unity" height="20" /> <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt="C#" height="20" /> · [repo](https://github.com/shakhbozmn/scrap-fortress)
+- **[flight-delay-prediction](https://github.com/shakhbozmn/flight-delay-prediction)** — U.S. flight delay risk classifier.
+  <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" height="20" /> <img src="https://cdn.simpleicons.org/scikitlearn/F7931E" alt="scikit-learn" height="20" /> <img src="https://cdn.simpleicons.org/streamlit/FF4B4B" alt="Streamlit" height="20" /> · [repo](https://github.com/shakhbozmn/flight-delay-prediction)
 
 ## Latest
 
@@ -63,30 +64,41 @@
 
 ## Connections
 
-<p align="center">
-  <a href="https://t.me/shahbozms" target="_blank" rel="noopener" style="display:inline-block;width:230px;margin:8px;padding:14px 18px;border:1px solid #26A5E4;border-left:6px solid #26A5E4;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#f6fbfd;font-family:ui-monospace,monospace;font-size:13px;vertical-align:top">
-    <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">📨 telegram</div>
-    <div style="opacity:.7;margin-top:2px">reply ≤ 2h</div>
-    <div style="margin-top:6px">▌▌▌▌▌▌▌▌</div>
-    <div style="margin-top:6px;color:#0b1220">t.me/shahbozms →</div>
-  </a>
-  <a href="mailto:shakhbozmn@gmail.com" style="display:inline-block;width:230px;margin:8px;padding:14px 18px;border:1px solid #EA4335;border-left:6px solid #EA4335;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#fef6f4;font-family:ui-monospace,monospace;font-size:13px;vertical-align:top">
-    <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">✉ email</div>
-    <div style="opacity:.7;margin-top:2px">reply ≤ 24h</div>
-    <div style="margin-top:6px">▌▌▌▌▌</div>
-    <div style="margin-top:6px;color:#0b1220">shakhbozmn@gmail.com →</div>
-  </a>
-  <br/>
-  <a href="https://linkedin.com/in/shahbozms" target="_blank" rel="noopener" style="display:inline-block;width:230px;margin:8px;padding:14px 18px;border:1px solid #0A66C2;border-left:6px solid #0A66C2;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#f4f8fd;font-family:ui-monospace,monospace;font-size:13px;vertical-align:top">
-    <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">in linkedin</div>
-    <div style="opacity:.7;margin-top:2px">DMs by appt.</div>
-    <div style="margin-top:6px">▌▌▌▌</div>
-    <div style="margin-top:6px;color:#0b1220">/in/shahbozms →</div>
-  </a>
-  <a href="https://shahbozms.uz" target="_blank" rel="noopener" style="display:inline-block;width:230px;margin:8px;padding:14px 18px;border:1px solid #34A853;border-left:6px solid #34A853;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#f4fbf6;font-family:ui-monospace,monospace;font-size:13px;vertical-align:top">
-    <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">▸ website</div>
-    <div style="opacity:.7;margin-top:2px">long-form only</div>
-    <div style="margin-top:6px">▌▌▌▌▌</div>
-    <div style="margin-top:6px;color:#0b1220">shahbozms.uz →</div>
-  </a>
-</p>
+<table align="center" style="border-collapse:separate;border-spacing:10px">
+  <tr>
+    <td>
+      <a href="https://t.me/shahbozms" target="_blank" rel="noopener" style="display:block;width:230px;padding:14px 18px;border:1px solid #26A5E4;border-left:6px solid #26A5E4;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#f6fbfd;font-family:ui-monospace,monospace;font-size:13px">
+        <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">📨 telegram</div>
+        <div style="opacity:.7;margin-top:2px">reply ≤ 2h</div>
+        <div style="margin-top:6px">▌▌▌▌▌▌▌▌</div>
+        <div style="margin-top:6px;color:#0b1220">t.me/shakhbozms →</div>
+      </a>
+    </td>
+    <td>
+      <a href="mailto:shakhbozmn@gmail.com" style="display:block;width:230px;padding:14px 18px;border:1px solid #EA4335;border-left:6px solid #EA4335;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#fef6f4;font-family:ui-monospace,monospace;font-size:13px">
+        <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">✉ email</div>
+        <div style="opacity:.7;margin-top:2px">reply ≤ 24h</div>
+        <div style="margin-top:6px">▌▌▌▌▌</div>
+        <div style="margin-top:6px;color:#0b1220">shakhbozmn@gmail.com →</div>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="https://linkedin.com/in/shakhbozms" target="_blank" rel="noopener" style="display:block;width:230px;padding:14px 18px;border:1px solid #0A66C2;border-left:6px solid #0A66C2;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#f4f8fd;font-family:ui-monospace,monospace;font-size:13px">
+        <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">in linkedin</div>
+        <div style="opacity:.7;margin-top:2px">DMs by appt.</div>
+        <div style="margin-top:6px">▌▌▌▌</div>
+        <div style="margin-top:6px;color:#0b1220">/in/shakhbozms →</div>
+      </a>
+    </td>
+    <td>
+      <a href="https://shahbozms.uz" target="_blank" rel="noopener" style="display:block;width:230px;padding:14px 18px;border:1px solid #34A853;border-left:6px solid #34A853;border-radius:6px;text-align:left;text-decoration:none;color:#0b1220;background:#f4fbf6;font-family:ui-monospace,monospace;font-size:13px">
+        <div style="font-weight:700;font-size:15px;letter-spacing:.5px;color:#0b1220">▸ website</div>
+        <div style="opacity:.7;margin-top:2px">long-form only</div>
+        <div style="margin-top:6px">▌▌▌▌▌</div>
+        <div style="margin-top:6px;color:#0b1220">shahbozms.uz →</div>
+      </a>
+    </td>
+  </tr>
+</table>
