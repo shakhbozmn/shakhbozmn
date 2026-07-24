@@ -174,17 +174,9 @@ function buildFrames(theme, now, width, height) {
     return ctx;
   }
 
-  // Lead frames showing whoami already typed and its responses printed.
-  for (let i = 0; i < 6; i++) {
-    const ctx = newFrame();
-    drawAllUpTo(ctx, theme, yLines, 5);
-    drawCursor(ctx, theme, PAD_X, yLines[4].y, (i % 2) === 0);
-    frames.push(ctx.rgba);
-  }
-
   for (let i = 0; i < yLines.length; i++) {
     const line = yLines[i];
-    if (line.type === "command-prompt" && i === 5) {
+    if (line.type === "command-prompt") {
       const cmd = line.cmd;
       const totalChars = cmd.cmd.length;
 
@@ -205,18 +197,22 @@ function buildFrames(theme, now, width, height) {
         drawCursor(ctx, theme, fullCmdX, line.y, (frames.length % 2) === 0);
         frames.push(ctx.rgba);
       }
-    } else if (line.type === "response" && i >= 5) {
+    } else if (line.type === "response") {
       const ctx = newFrame();
       drawAllUpTo(ctx, theme, yLines, i + 1);
-      drawCursor(ctx, theme, PAD_X, line.y, (frames.length % 2) === 0);
+      const cursorX = PAD_X + textWidth(line.text) + 1;
+      drawCursor(ctx, theme, cursorX, line.y, (frames.length % 2) === 0);
       frames.push(ctx.rgba);
     }
   }
 
+  // Freeze: all content on screen, cursor at the very end of the last line.
+  const lastLine = yLines[yLines.length - 1];
+  const lastCursorX = PAD_X + textWidth(lastLine.text || "") + 1;
   for (let i = 0; i < FREEZE_STEP_FRAMES; i++) {
     const ctx = newFrame();
     drawAllUpTo(ctx, theme, yLines, yLines.length);
-    drawCursor(ctx, theme, PAD_X, yLines[yLines.length - 1].y, (i % 2) === 0);
+    drawCursor(ctx, theme, lastCursorX, lastLine.y, (i % 2) === 0);
     frames.push(ctx.rgba);
   }
 
