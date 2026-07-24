@@ -17,6 +17,8 @@ test("renders terminal page with input, commands, and boot autoplay", async () =
   assert.match(body, /autoplaying = true/);
   assert.match(body, /BOOT_SEQUENCE/);
   assert.match(body, /interruptAutoplay/);
+  assert.match(body, /x-ratelimit-remaining/);
+  assert.match(body, /rate-limited by GitHub/);
 });
 
 test("returns 404 for paths outside known routes", async () => {

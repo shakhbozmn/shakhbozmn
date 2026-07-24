@@ -164,17 +164,35 @@ const COMMANDS = {
     print('<span class="dim">fetching live data from api.github.com...</span>');
     try {
       const res = await fetch("https://api.github.com/users/shakhbozmn");
-      if (!res.ok) throw new Error("GitHub API returned " + res.status);
+      const remaining = res.headers.get("x-ratelimit-remaining");
+      const resetHeader = res.headers.get("x-ratelimit-reset");
+
+      if (res.status === 403 || res.status === 429) {
+        const resetMsg = resetHeader
+          ? " resets at " + new Date(parseInt(resetHeader, 10) * 1000).toLocaleTimeString()
+          : "";
+        return '<span class="red">rate-limited by GitHub (60 unauthenticated requests/hr, shared across your network).</span>' +
+               (resetMsg ? '<br><span class="dim">' + resetMsg + '</span>' : "");
+      }
+
+      if (res.status === 404) {
+        return '<span class="red">GitHub returned 404 — check the username in the stats command.</span>';
+      }
+
+      if (!res.ok) {
+        return '<span class="red">GitHub API returned HTTP ' + res.status + ' (' + res.statusText + ').</span>';
+      }
+
       const data = await res.json();
       return [
         "public_repos: " + data.public_repos,
         "followers:    " + data.followers,
         "following:     " + data.following,
         "profile created: " + new Date(data.created_at).toISOString().slice(0, 10),
-        '<span class="dim">(fetched live from your browser, just now)</span>',
-      ].join("\\n");
+        remaining ? '<span class="dim">(rate limit remaining: ' + remaining + '/60)</span>' : "",
+      ].filter(Boolean).join("\\n");
     } catch (e) {
-      return '<span class="red">fetch failed — GitHub API may be rate-limiting this network. try again shortly.</span>';
+      return '<span class="red">network error reaching api.github.com: ' + escapeHtml(String(e.message || e)) + '</span>';
     }
   },
   clear() {
