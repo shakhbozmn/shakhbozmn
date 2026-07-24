@@ -115,55 +115,106 @@ function renderCombinedCard(theme, dateText, timeText, weekday) {
   const prompt = escapeXml(theme.prompt);
   const response = escapeXml(theme.response);
   const pulse = escapeXml(theme.accent);
+  const surface = escapeXml(theme.surface);
 
   const cursorX = padX + measureText(prompt, 16) + 6;
+  const cursorY = promptY - 4;
   const spinnerX = padX + measureText(RESPONSE_LINES[RESPONSE_LINES.length - 1], 14) + 12;
   const spinnerY = responseY + lineHeight * 2 - 4;
-  const cursorY = promptY - 4;
+
+  const promptText = escapeXml(PROMPT);
+  const promptYAttr = promptY;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="cardTitle cardDesc">
   <title id="cardTitle">Live Tashkent clock and terminal</title>
-  <desc id="cardDesc">Terminal whoami output and current Asia/Tashkent date and time</desc>
+  <desc id="cardDesc">Animated terminal whoami output and current Asia/Tashkent date and time</desc>
   <defs>
+    <linearGradient id="cardBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="${surface}"/>
+      <stop offset="100%" stop-color="${bg}"/>
+    </linearGradient>
+    <linearGradient id="accentSweep" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${accent}" stop-opacity="0"/>
+      <stop offset="50%" stop-color="${accent}" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
+    </linearGradient>
     <clipPath id="borderClip">
       <rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="14" ry="14"/>
     </clipPath>
   </defs>
-  <rect x="0" y="0" width="${width}" height="${height}" rx="14" ry="14" fill="${bg}" stroke="${border}" stroke-width="1"/>
-  <g clip-path="url(#borderClip)" stroke="${accent}" stroke-width="2" fill="none" opacity="0.55">
-    <line x1="0" y1="0" x2="14" y2="0">
-      <animate attributeName="x1" from="-14" to="${width}" dur="3s" repeatCount="indefinite"/>
-      <animate attributeName="x2" from="0" to="${width + 14}" dur="3s" repeatCount="indefinite"/>
+  <rect x="0" y="0" width="${width}" height="${height}" rx="14" ry="14" fill="url(#cardBg)" stroke="${border}" stroke-width="1"/>
+
+  <g clip-path="url(#borderClip)">
+    <line x1="0" y1="0" x2="20" y2="0" stroke="url(#accentSweep)" stroke-width="2" stroke-linecap="round">
+      <animate attributeName="x1" from="-40" to="${width}" dur="3.5s" repeatCount="indefinite"/>
+      <animate attributeName="x2" from="-20" to="${width + 40}" dur="3.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="0" y1="${height}" x2="20" y2="${height}" stroke="url(#accentSweep)" stroke-width="2" stroke-linecap="round" opacity="0.4">
+      <animate attributeName="x1" from="-40" to="${width}" dur="5s" begin="1.2s" repeatCount="indefinite"/>
+      <animate attributeName="x2" from="-20" to="${width + 40}" dur="5s" begin="1.2s" repeatCount="indefinite"/>
     </line>
   </g>
+
   <text x="${padX}" y="${padY + 16}" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="${dim}">$ date --time-zone "${escapeXml(TIME_ZONE)}"</text>
   <text x="${padX}" y="${terminalTop - 6}" font-family="ui-monospace, Menlo, monospace" font-size="14" font-weight="600" fill="${accent}">shakhbozmn@portfolio</text>
-  <text x="${padX}" y="${promptY}" font-family="ui-monospace, Menlo, monospace" font-size="16" fill="${prompt}">${escapedPrompt}</text>
+
+  <text x="${padX}" y="${promptYAttr}" font-family="ui-monospace, Menlo, monospace" font-size="16" fill="${prompt}">${promptText}</text>
   <rect x="${cursorX}" y="${cursorY}" width="9" height="18" fill="${pulse}">
     <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1s" repeatCount="indefinite"/>
   </rect>
-  <text x="${padX}" y="${responseY}" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${response}">${escapedLines[0]}</text>
-  <text x="${padX}" y="${responseY + lineHeight}" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${response}">${escapedLines[1]}</text>
-  <text x="${padX}" y="${responseY + lineHeight * 2}" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${response}">${escapedLines[2]}</text>
+
+  ${renderTypingLine(0, responseY, response, escapedLines[0], width, padX)}
+  ${renderTypingLine(1, responseY + lineHeight, response, escapedLines[1], width, padX)}
+  ${renderTypingLine(2, responseY + lineHeight * 2, response, escapedLines[2], width, padX)}
+
   <g transform="translate(${spinnerX} ${spinnerY})" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${accent}">
-    <text>${escapedLines[2] ? ' ' : ''}<tspan>
-      <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.25;1" dur="1s" begin="0s" repeatCount="indefinite"/>|</tspan>
-      <tspan>
-      <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.25;1" dur="1s" begin="0.25s" repeatCount="indefinite"/>/</tspan>
-      <tspan>
-      <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.25;1" dur="1s" begin="0.5s" repeatCount="indefinite"/>-</tspan>
-      <tspan>
-      <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.25;1" dur="1s" begin="0.75s" repeatCount="indefinite"/>\</tspan>
-    </text>
+    <text><tspan opacity="0">|
+      <animate attributeName="opacity" values="0;1;0" keyTimes="0;0.25;0.5" dur="1s" begin="0s" repeatCount="indefinite"/>
+    </tspan><tspan opacity="0">/
+      <animate attributeName="opacity" values="0;1;0" keyTimes="0.25;0.5;0.75" dur="1s" begin="0s" repeatCount="indefinite"/>
+    </tspan><tspan opacity="0">-
+      <animate attributeName="opacity" values="0;1;0" keyTimes="0.5;0.75;1" dur="1s" begin="0s" repeatCount="indefinite"/>
+    </tspan><tspan opacity="0">\
+      <animate attributeName="opacity" values="0;1;0" keyTimes="0.75;1;0" dur="1s" begin="0s" repeatCount="indefinite"/>
+    </tspan></text>
   </g>
-  <line x1="${padX}" x2="${width - padX}" y1="${lastY + 8}" y2="${lastY + 8}" stroke="${border}" stroke-width="1"/>
+
+  <line x1="${padX}" x2="${width - padX}" y1="${lastY + 8}" y2="${lastY + 8}" stroke="${border}" stroke-width="1">
+    <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite"/>
+  </line>
+
   <text x="${padX}" y="${clockY}" font-family="ui-monospace, Menlo, monospace" font-size="22" font-weight="600" fill="${fg}">${escapeXml(dateText)}  ${escapeXml(timeText)}</text>
+
   <circle cx="${padX - 8}" cy="${clockY - 6}" r="4" fill="${accent}">
     <animate attributeName="opacity" values="1;0.25;1" dur="1s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="4;5;4" dur="1s" repeatCount="indefinite"/>
   </circle>
+
   <text x="${padX}" y="${clockY + 22}" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="${accent}">${escapeXml(weekday)} · Tashkent, UZ · open for collaboration</text>
 </svg>`;
 }
+
+function renderTypingLine(lineIndex, y, color, text, cardWidth, padX) {
+  const fillColor = color;
+  const startWidth = 0;
+  const endWidth = Math.min(measureText(text, 14) + 6, cardWidth - padX * 2);
+  const cycleSeconds = 9;
+  const beginOffset = lineIndex * 0.4;
+  const clipId = `typeClip${lineIndex}`;
+
+  return `
+  <defs>
+    <clipPath id="${clipId}">
+      <rect x="${padX}" y="${y - 16}" width="${endWidth}" height="20">
+        <animate attributeName="width" values="${startWidth};${endWidth};${endWidth};${startWidth}" keyTimes="0;0.05;0.85;1" dur="${cycleSeconds}s" begin="${beginOffset}s" repeatCount="indefinite"/>
+      </rect>
+    </clipPath>
+  </defs>
+  <text x="${padX}" y="${y}" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${fillColor}" clip-path="url(#${clipId})">${text}</text>`;
+}
+
+
+
 
 function measureText(text, fontSize) {
   const monospaceWidthRatio = 0.6;
