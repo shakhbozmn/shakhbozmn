@@ -7,6 +7,56 @@ export function renderLivePage() {
   });
 }
 
+const TIME_ZONE = "Asia/Tashkent";
+const WHOAMI_LINES = [
+  "Shahboz Munirov — product-focused software engineer.",
+  "Day job: senior software engineer at EPAM Systems.",
+  "Side build: Gnezdo Travel (real-estate / PMS platform).",
+  "Building product and engineering end to end.",
+];
+
+const STATUS_WINDOWS = [
+  { start: 6, end: 9, line: "waking up · espresso · triage inbox" },
+  { start: 9, end: 11, line: "morning stack · review PRs, plan the day" },
+  { start: 11, end: 13, line: "deep work · heads down on Gnezdo features" },
+  { start: 13, end: 14, line: "lunch + thinking · long walk, no meetings" },
+  { start: 14, end: 18, line: "shipping · builds, deploys, dashboards" },
+  { start: 18, end: 21, line: "evening review · wrap up, write notes" },
+  { start: 21, end: 24, line: "side project · Gnezdo Travel experiments" },
+  { start: 0, end: 6, line: "quiet hours · reading, light tinkering" },
+];
+
+function statusForHour(hour) {
+  for (const w of STATUS_WINDOWS) {
+    if (w.end <= w.start) {
+      if (hour >= w.start || hour < w.end) return w.line;
+    } else if (hour >= w.start && hour < w.end) {
+      return w.line;
+    }
+  }
+  return STATUS_WINDOWS[STATUS_WINDOWS.length - 1].line;
+}
+
+function statusDateLine(date) {
+  const fmt = new Intl.DateTimeFormat("en-GB", {
+    timeZone: TIME_ZONE,
+    weekday: "short",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  const parts = Object.fromEntries(
+    fmt
+      .formatToParts(date)
+      .filter((p) => p.type !== "literal")
+      .map((p) => [p.type, p.value]),
+  );
+  return `${parts.weekday} ${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}`;
+}
+
 const TERMINAL_HTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,6 +141,7 @@ const TERMINAL_HTML = `<!DOCTYPE html>
 </div>
 
 <script>
+const TIME_ZONE = "Asia/Tashkent";
 const log = document.getElementById("log");
 const stdin = document.getElementById("stdin");
 const history = [];
@@ -115,14 +166,48 @@ const COMMANDS = {
   help() {
     return [
       "available commands:",
-      "  about        who I am",
+      "  whoami       one-liner about me",
+      "  about        who I am (longer)",
       "  stack        tech I build with",
       "  projects     shipped things (aka ls)",
+      "  status       local time + what I'm doing",
       "  contact      how to reach me",
       "  stats        live GitHub stats (fetched right now)",
       "  resume       link to full background",
       "  clear        clear the screen",
       "  sudo hire-me ...",
+    ].join("\\n");
+  },
+  whoami() {
+    return [
+      "Shahboz Munirov — product-focused software engineer.",
+      "Day job: senior software engineer at EPAM Systems.",
+      "Side build: Gnezdo Travel (real-estate / PMS platform).",
+      "Building product and engineering end to end.",
+    ].join("\\n");
+  },
+  status() {
+    const now = new Date();
+    const fmt = new Intl.DateTimeFormat("en-GB", {
+      timeZone: TIME_ZONE,
+      weekday: "short",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+    const parts = Object.fromEntries(
+      fmt
+        .formatToParts(now)
+        .filter((p) => p.type !== "literal")
+        .map((p) => [p.type, p.value]),
+    );
+    const hour = Number(parts.hour);
+    return [
+      "local: " + statusDateLine(now) + " · " + TIME_ZONE,
+      statusForHour(hour),
     ].join("\\n");
   },
   about() {
