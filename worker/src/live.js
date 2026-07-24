@@ -207,10 +207,56 @@ async function run(raw) {
   if (out !== null && out !== undefined) print(out);
 }
 
-print('<span class="dim">Welcome. Type <span class="accent">help</span> to see what\\'s available.</span>');
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function typeIntoInput(text) {
+  for (let i = 0; i < text.length; i++) {
+    stdin.value += text[i];
+    await sleep(28 + Math.random() * 45);
+  }
+  await sleep(260);
+}
+
+let autoplaying = true;
+
+const BOOT_SEQUENCE = ["whoami", "about", "stack", "projects"];
+
+async function boot() {
+  print('<span class="dim">connecting to shakhbozms@github ...</span>');
+  await sleep(500);
+  print('<span class="dim">autoplaying a quick tour — press any key to take over</span>');
+  await sleep(700);
+
+  for (const cmd of BOOT_SEQUENCE) {
+    if (!autoplaying) break;
+    await typeIntoInput(cmd);
+    if (!autoplaying) break;
+    const val = stdin.value;
+    stdin.value = "";
+    await run(val);
+    await sleep(1100);
+  }
+
+  if (autoplaying) {
+    print('<span class="dim">— tour complete. it\\'s your turn: try <span class="accent">contact</span>, <span class="accent">stats</span>, or <span class="accent">sudo hire-me</span> —</span>');
+    autoplaying = false;
+  }
+  stdin.focus();
+}
+
+function interruptAutoplay() {
+  if (autoplaying) {
+    autoplaying = false;
+    stdin.value = "";
+    print('<span class="dim">— tour interrupted, you\\'ve got the wheel —</span>');
+  }
+}
 
 stdin.addEventListener("keydown", async (e) => {
+  if (autoplaying && e.key !== "Enter") interruptAutoplay();
+
   if (e.key === "Enter") {
+    if (autoplaying) return;
     const val = stdin.value;
     stdin.value = "";
     await run(val);
@@ -225,6 +271,9 @@ stdin.addEventListener("keydown", async (e) => {
 });
 
 document.addEventListener("click", () => stdin.focus());
+document.addEventListener("keydown", () => stdin.focus());
+
+boot();
 </script>
 </body>
 </html>`;

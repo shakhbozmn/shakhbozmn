@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { renderLivePage } from "../src/live.js";
 
-test("renders terminal page with input and commands", async () => {
+test("renders terminal page with input, commands, and boot autoplay", async () => {
   const response = renderLivePage();
 
   assert.equal(response.status, 200);
@@ -14,6 +14,9 @@ test("renders terminal page with input and commands", async () => {
   assert.match(body, /api\.github\.com\/users\/shakhbozmn/);
   assert.match(body, /help · about · stack · projects · contact · stats/);
   assert.match(body, /COMMANDS\["sudo hire-me"\]/);
+  assert.match(body, /autoplaying = true/);
+  assert.match(body, /BOOT_SEQUENCE/);
+  assert.match(body, /interruptAutoplay/);
 });
 
 test("returns 404 for paths outside known routes", async () => {
