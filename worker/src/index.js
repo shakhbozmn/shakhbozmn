@@ -1,25 +1,10 @@
 import { renderLivePage } from "./live.js";
-import { renderPreviewSvg } from "./preview.js";
 import { buildPreviewGif } from "./previewGif.js";
 
 const headers = {
   "Cache-Control": "no-store, max-age=0",
   "X-Content-Type-Options": "nosniff",
 };
-
-function svgResponse(body) {
-  return new Response(body, {
-    status: 200,
-    headers: { ...headers, "Content-Type": "image/svg+xml; charset=UTF-8" },
-  });
-}
-
-function gifResponse(bytes) {
-  return new Response(bytes, {
-    status: 200,
-    headers: { ...headers, "Content-Type": "image/gif" },
-  });
-}
 
 export default {
   async fetch(request) {
@@ -31,11 +16,10 @@ export default {
     }
 
     if (url.pathname === "/preview.gif" || url.pathname === "/autoplay.gif") {
-      return gifResponse(buildPreviewGif(theme));
-    }
-
-    if (url.pathname === "/preview" || url.pathname === "/autoplay") {
-      return svgResponse(renderPreviewSvg(theme));
+      return new Response(buildPreviewGif(theme), {
+        status: 200,
+        headers: { ...headers, "Content-Type": "image/gif" },
+      });
     }
 
     return new Response("Not found", {
