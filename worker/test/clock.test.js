@@ -67,3 +67,31 @@ test("returns terminal HTML from /terminal alias", async () => {
   const body = await response.text();
   assert.match(body, /id="stdin"/);
 });
+
+test("returns autoplay preview SVG from /preview with security headers", async () => {
+  const worker = (await import("../src/index.js")).default;
+  const response = await worker.fetch(
+    new Request("https://example.com/preview?theme=dark"),
+  );
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-type"), "image/svg+xml; charset=UTF-8");
+  assert.equal(response.headers.get("cache-control"), "no-store, max-age=0");
+  assert.equal(response.headers.get("x-content-type-options"), "nosniff");
+  const body = await response.text();
+  assert.match(body, /Terminal autoplay preview/);
+  assert.match(body, /repeatCount="1"/);
+  assert.match(body, /fill="freeze"/);
+});
+
+test("returns autoplay preview SVG from /autoplay alias", async () => {
+  const worker = (await import("../src/index.js")).default;
+  const response = await worker.fetch(
+    new Request("https://example.com/autoplay?theme=light"),
+  );
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-type"), "image/svg+xml; charset=UTF-8");
+  const body = await response.text();
+  assert.match(body, /fill="#f6f8fa"/);
+});

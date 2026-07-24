@@ -1,8 +1,14 @@
 <div align="center">
 
-[![Open interactive terminal](https://img.shields.io/badge/▶_Open-interactive_terminal-58a6ff?style=for-the-badge&logo=gnometerminal&logoColor=white&labelColor=0d1117)](https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/terminal)
+<a href="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/terminal" aria-label="Open interactive terminal">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/preview?theme=dark">
+    <source media="(prefers-color-scheme: light)" srcset="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/preview?theme=light">
+    <img alt="Live terminal autoplay preview" src="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/preview?theme=dark" style="display:block;width:100%;max-width:760px;border-radius:12px;" />
+  </picture>
+</a>
 
-<sub>live typeable terminal served by Cloudflare Worker · <a href="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/live">/live</a> · <a href="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/terminal">/terminal</a></sub>
+<sub>animated autoplay served by Cloudflare Worker · tap to open the typeable terminal · <a href="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/terminal">/terminal</a> · <a href="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/live">/live</a></sub>
 
 </div>
 
