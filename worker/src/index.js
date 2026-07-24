@@ -22,8 +22,8 @@ export default {
       return response(renderClockSvg(theme, new Date(), { combined: true }), "image/svg+xml; charset=UTF-8");
     }
 
-    if (url.pathname === "/live") {
-      return response(renderLivePage(theme), "text/html; charset=UTF-8");
+    if (url.pathname === "/live" || url.pathname === "/terminal") {
+      return renderLivePage();
     }
 
     return response("Not found", "text/plain; charset=UTF-8", 404);

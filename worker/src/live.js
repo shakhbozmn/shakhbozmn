@@ -1,166 +1,230 @@
-import { PROMPT, RESPONSE_LINES, TIME_ZONE, THEMES } from "./clock.js";
-
-const PAGE_TITLE = "shakhbozmn — live card";
-
-function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, (character) => {
-    const entities = {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      "\"": "&quot;",
-      "'": "&#39;",
-    };
-    return entities[character];
+export function renderLivePage() {
+  return new Response(TERMINAL_HTML, {
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": "public, max-age=300",
+    },
   });
 }
 
-function styleFor(theme) {
-  return `:root {
-    color-scheme: ${theme.bg === "#0d1117" ? "dark" : "light"};
-    --bg: ${theme.bg};
-    --surface: ${theme.surface};
-    --border: ${theme.border};
-    --fg: ${theme.fg};
-    --dim: ${theme.dim};
-    --accent: ${theme.accent};
-    --prompt: ${theme.prompt};
-    --response: ${theme.response};
-  }`;
-}
-
-export function renderLivePage(themeName = "light") {
-  const theme = THEMES[themeName] || THEMES.light;
-  const prompt = escapeHtml(PROMPT);
-  const responseLines = RESPONSE_LINES.map(escapeHtml);
-  const timezone = escapeHtml(TIME_ZONE);
-  const jsonTimeZone = JSON.stringify(TIME_ZONE);
-  const jsonLines = JSON.stringify(RESPONSE_LINES);
-
-  return `<!doctype html>
+const TERMINAL_HTML = `<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>${escapeHtml(PAGE_TITLE)}</title>
-    <meta name="description" content="Live card with terminal and Asia/Tashkent clock" />
-    <style>${styleFor(theme)}
-      html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: ui-monospace, Menlo, monospace; }
-      .wrap { max-width: 760px; margin: 0 auto; padding: 24px; }
-      .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
-      .label { color: var(--dim); font-size: 13px; margin-bottom: 6px; }
-      .terminal-header { color: var(--accent); font-size: 14px; font-weight: 600; }
-      .prompt { color: var(--prompt); font-size: 16px; margin: 6px 0 2px; }
-      .response { color: var(--response); font-size: 14px; line-height: 1.55; min-height: 1.55em; white-space: pre-wrap; }
-      .cursor { display: inline-block; width: 8px; background: var(--accent); animation: blink 1s steps(2) infinite; margin-left: 2px; }
-      @keyframes blink { 50% { opacity: 0; } }
-      .divider { border: 0; border-top: 1px solid var(--border); margin: 18px 0; }
-      .clock { font-size: 26px; font-weight: 600; }
-      .meta { color: var(--accent); font-size: 13px; margin-top: 4px; }
-      .tz { color: var(--dim); font-size: 13px; }
-      .controls { margin-top: 16px; display: flex; gap: 8px; }
-      .controls a, .controls button { background: var(--surface); color: var(--fg); border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; font-family: inherit; font-size: 13px; cursor: pointer; text-decoration: none; }
-      .controls a:hover, .controls button:hover { border-color: var(--accent); color: var(--accent); }
-      pre.terminal { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.5; }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <div class="card" id="card">
-        <div class="label">$ date --time-zone "${timezone}"</div>
-        <div class="terminal-header">shakhbozmn@portfolio</div>
-        <div class="prompt" id="prompt">${prompt}</div>
-        <div class="response" id="line-0"></div>
-        <div class="response" id="line-1"></div>
-        <div class="response" id="line-2"></div>
-        <hr class="divider" />
-        <div class="clock" id="clock" aria-live="polite">--:--:--</div>
-        <div class="meta" id="meta">-- · Tashkent, UZ</div>
-        <div class="tz">open for collaboration · tap card to replay terminal</div>
-        <div class="controls">
-          <button type="button" id="replay" aria-label="Replay terminal animation">Replay terminal</button>
-          <a href="/card?theme=${escapeHtml(themeName)}" aria-label="Open combined card SVG">Card SVG</a>
-        </div>
-        <pre class="terminal" aria-label="Raw prompt and lines">${escapeHtml(PROMPT + "  " + RESPONSE_LINES.join("  "))}</pre>
-      </div>
-    </div>
-    <script>
-      (function () {
-        var timeZone = ${jsonTimeZone};
-        var lines = ${jsonLines};
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>shakhbozms@github:~$</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --fg: #e6edf3;
+    --dim: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --yellow: #d29922;
+    --red: #f85149;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 14px;
+  }
+  #term {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+    min-height: 100%;
+  }
+  .titlebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    color: var(--dim);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; display:inline-block; }
+  .dot.r { background: #ff5f56; }
+  .dot.y { background: #ffbd2e; }
+  .dot.g { background: #27c93f; }
+  #log { white-space: pre-wrap; word-break: break-word; line-height: 1.55; }
+  .line-prompt { color: var(--green); }
+  .path { color: var(--accent); }
+  .cmd { color: var(--fg); }
+  .dim { color: var(--dim); }
+  .accent { color: var(--accent); }
+  .yellow { color: var(--yellow); }
+  .red { color: var(--red); }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+  a:hover { opacity: 0.8; }
+  #inputRow { display: flex; align-items: center; margin-top: 4px; }
+  #inputRow .prompt { color: var(--green); white-space: nowrap; }
+  #inputRow .path { color: var(--accent); white-space: nowrap; margin-left: 2px; }
+  #stdin {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--fg);
+    font: inherit;
+    margin-left: 8px;
+    caret-color: var(--fg);
+  }
+  ::selection { background: #264f78; }
+  .hint { color: var(--dim); font-size: 12px; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div id="term">
+  <div class="titlebar">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    &nbsp;shakhbozms@github — 80×24
+  </div>
+  <div id="log"></div>
+  <div id="inputRow">
+    <span class="prompt">shakhbozms@github</span><span class="path">:~$</span>
+    <input id="stdin" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus />
+  </div>
+  <div class="hint">try: help · about · stack · projects · contact · stats · sudo hire-me</div>
+</div>
 
-        function start() {
-          var cursor = document.createElement('span');
-          cursor.className = 'cursor';
-          cursor.setAttribute('aria-hidden', 'true');
-          document.getElementById('prompt').appendChild(cursor);
-        }
+<script>
+const log = document.getElementById("log");
+const stdin = document.getElementById("stdin");
+const history = [];
+let histPos = -1;
 
-        function clearLines() {
-          for (var i = 0; i < lines.length; i++) {
-            document.getElementById('line-' + i).textContent = '';
-          }
-        }
-
-        function typeLine(index) {
-          return new Promise(function (resolve) {
-            var text = lines[index];
-            var el = document.getElementById('line-' + index);
-            var j = 0;
-            var timer = setInterval(function () {
-              j++;
-              el.textContent = text.slice(0, j);
-              if (j >= text.length) {
-                clearInterval(timer);
-                resolve();
-              }
-            }, 18);
-          });
-        }
-
-        function typeAll() {
-          var chain = Promise.resolve();
-          for (var i = 0; i < lines.length; i++) {
-            (function (idx) {
-              chain = chain.then(function () { return typeLine(idx); });
-            })(i);
-          }
-          return chain;
-        }
-
-        function updateClock() {
-          var now = new Date();
-          var fmt = new Intl.DateTimeFormat('en-GB', {
-            timeZone: timeZone,
-            year: 'numeric', month: '2-digit', day: '2-digit',
-            hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
-          });
-          var parts = {};
-          fmt.formatToParts(now).forEach(function (p) {
-            if (p.type !== 'literal') parts[p.type] = p.value;
-          });
-          var weekday = new Intl.DateTimeFormat('en-US', { timeZone: timeZone, weekday: 'short' }).format(now);
-          document.getElementById('clock').textContent = parts.year + '-' + parts.month + '-' + parts.day + '  ' + parts.hour + ':' + parts.minute + ':' + parts.second;
-          document.getElementById('meta').textContent = weekday + ' · Tashkent, UZ · open for collaboration';
-        }
-
-        start();
-        typeAll();
-        updateClock();
-        setInterval(updateClock, 1000);
-
-        document.getElementById('replay').addEventListener('click', function () {
-          clearLines();
-          typeAll();
-        });
-
-        document.getElementById('card').addEventListener('click', function (event) {
-          if (event.target.tagName === 'A' || event.target.tagName === 'BUTTON') return;
-          clearLines();
-          typeAll();
-        });
-      })();
-    </script>
-  </body>
-</html>`;
+function print(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  log.appendChild(div);
+  window.scrollTo(0, document.body.scrollHeight);
 }
+
+function promptLine(cmdText) {
+  print('<span class="line-prompt">shakhbozms@github</span><span class="path">:~$</span> <span class="cmd">' + escapeHtml(cmdText) + '</span>');
+}
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+const COMMANDS = {
+  help() {
+    return [
+      "available commands:",
+      "  about        who I am",
+      "  stack        tech I build with",
+      "  projects     shipped things (aka ls)",
+      "  contact      how to reach me",
+      "  stats        live GitHub stats (fetched right now)",
+      "  resume       link to full background",
+      "  clear        clear the screen",
+      "  sudo hire-me ...",
+    ].join("\\n");
+  },
+  about() {
+    return [
+      "Shahboz — product engineer, Tashkent, UZ.",
+      "Working across product + engineering on <a href=\\"https://github.com/shakhbozmn\\" target=\\"_blank\\">Gnezdo</a>, a real-estate booking / PMS platform.",
+      "Comfortable owning a feature end to end: spec, build, ship, monitor.",
+    ].join("\\n");
+  },
+  stack() {
+    return [
+      "frontend:  React · React Native · Expo · Next.js",
+      "backend:   Node.js · FeathersJS · MongoDB",
+      "infra:     Docker · Traefik · Portainer · Grafana",
+      "currently learning: Swift, Kotlin (going native)",
+    ].join("\\n");
+  },
+  projects() {
+    return [
+      '<a href="https://github.com/shakhbozmn/feathers-board" target="_blank">feathers-board</a>          FeathersJS v5 playground',
+      '<a href="https://github.com/shakhbozmn/4work" target="_blank">4work</a>                   two-sided portfolio marketplace (Next.js)',
+      '<a href="https://github.com/shakhbozmn/scrap-fortress" target="_blank">scrap-fortress</a>          Unity tower defense',
+      '<a href="https://github.com/shakhbozmn/flight-delay-prediction" target="_blank">flight-delay-prediction</a>  US flight-delay risk classifier',
+    ].join("\\n");
+  },
+  ls() { return COMMANDS.projects(); },
+  contact() {
+    return [
+      'telegram  <a href="https://t.me/shakhbozms" target="_blank">t.me/shakhbozms</a>   (fastest, ≤2h)',
+      'email     <a href="mailto:shakhbozmn@gmail.com">shakhbozmn@gmail.com</a>',
+      'linkedin  <a href="https://linkedin.com/in/shakhbozms" target="_blank">/in/shakhbozms</a>   (work stuff)',
+      'website   <a href="https://shahbozms.uz" target="_blank">shahbozms.uz</a>   (long-form writeups)',
+    ].join("\\n");
+  },
+  resume() {
+    return 'full background → <a href="https://shahbozms.uz" target="_blank">shahbozms.uz</a>';
+  },
+  async stats() {
+    print('<span class="dim">fetching live data from api.github.com...</span>');
+    try {
+      const res = await fetch("https://api.github.com/users/shakhbozmn");
+      if (!res.ok) throw new Error("GitHub API returned " + res.status);
+      const data = await res.json();
+      return [
+        "public_repos: " + data.public_repos,
+        "followers:    " + data.followers,
+        "following:     " + data.following,
+        "profile created: " + new Date(data.created_at).toISOString().slice(0, 10),
+        '<span class="dim">(fetched live from your browser, just now)</span>',
+      ].join("\\n");
+    } catch (e) {
+      return '<span class="red">fetch failed — GitHub API may be rate-limiting this network. try again shortly.</span>';
+    }
+  },
+  clear() {
+    log.innerHTML = "";
+    return null;
+  },
+};
+
+COMMANDS["sudo hire-me"] = () => [
+  '<span class="yellow">[sudo] password for shakhbozms:</span>',
+  "Nice try — no root access needed. Just use the <b>contact</b> command instead 🙂",
+].join("\\n");
+
+async function run(raw) {
+  const cmdKey = raw.trim().toLowerCase();
+  promptLine(raw);
+
+  if (cmdKey === "") return;
+
+  history.push(raw);
+  histPos = history.length;
+
+  const handler = COMMANDS[cmdKey];
+  if (!handler) {
+    print('<span class="red">command not found:</span> ' + escapeHtml(raw) + '  <span class="dim">(try "help")</span>');
+    return;
+  }
+
+  const out = await handler();
+  if (out !== null && out !== undefined) print(out);
+}
+
+print('<span class="dim">Welcome. Type <span class="accent">help</span> to see what\\'s available.</span>');
+
+stdin.addEventListener("keydown", async (e) => {
+  if (e.key === "Enter") {
+    const val = stdin.value;
+    stdin.value = "";
+    await run(val);
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    if (histPos > 0) { histPos--; stdin.value = history[histPos]; }
+  } else if (e.key === "ArrowDown") {
+    e.preventDefault();
+    if (histPos < history.length - 1) { histPos++; stdin.value = history[histPos]; }
+    else { histPos = history.length; stdin.value = ""; }
+  }
+});
+
+document.addEventListener("click", () => stdin.focus());
+</script>
+</body>
+</html>`;

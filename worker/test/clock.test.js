@@ -52,18 +52,18 @@ test("supports date rollover in Tashkent", () => {
   assert.match(svg, /2026-07-25  00:30:00/);
 });
 
-test("renders live page with terminal, divider, and clock hooks", () => {
-  const html = renderLivePage("dark");
+test("renders terminal page with input and commands", async () => {
+  const response = renderLivePage();
 
-  assert.match(html, /shakhbozmn@portfolio/);
-  assert.match(html, /id="line-0"/);
-  assert.match(html, /id="line-1"/);
-  assert.match(html, /id="line-2"/);
-  assert.match(html, /id="clock"/);
-  assert.match(html, /id="replay"/);
-  assert.match(html, /typeLine/);
-  assert.match(html, /Asia\/Tashkent/);
-  assert.doesNotMatch(html, /America\/Los_Angeles/);
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-type"), "text/html; charset=utf-8");
+  assert.equal(response.headers.get("cache-control"), "public, max-age=300");
+  const body = await response.text();
+  assert.match(body, /id="stdin"/);
+  assert.match(body, /shakhbozms@github/);
+  assert.match(body, /api\.github\.com\/users\/shakhbozmn/);
+  assert.match(body, /help · about · stack · projects · contact · stats/);
+  assert.match(body, /COMMANDS\["sudo hire-me"\]/);
 });
 
 test("returns 404 for paths outside known routes", async () => {
@@ -86,16 +86,28 @@ test("returns combined SVG from /card with security headers", async () => {
   assert.match(await response.text(), /Live Tashkent clock and terminal/);
 });
 
-test("returns interactive HTML from /live with security headers", async () => {
+test("returns terminal HTML from /live with cache headers", async () => {
   const worker = (await import("../src/index.js")).default;
   const response = await worker.fetch(
     new Request("https://example.com/live?theme=dark"),
   );
 
   assert.equal(response.status, 200);
-  assert.equal(response.headers.get("content-type"), "text/html; charset=UTF-8");
-  assert.equal(response.headers.get("cache-control"), "no-store, max-age=0");
+  assert.equal(response.headers.get("content-type"), "text/html; charset=utf-8");
+  assert.equal(response.headers.get("cache-control"), "public, max-age=300");
   const body = await response.text();
-  assert.match(body, /id="clock"/);
-  assert.match(body, /typeLine/);
+  assert.match(body, /id="stdin"/);
+  assert.match(body, /api\.github\.com\/users\/shakhbozmn/);
+});
+
+test("returns terminal HTML from /terminal alias", async () => {
+  const worker = (await import("../src/index.js")).default;
+  const response = await worker.fetch(
+    new Request("https://example.com/terminal"),
+  );
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-type"), "text/html; charset=utf-8");
+  const body = await response.text();
+  assert.match(body, /id="stdin"/);
 });
