@@ -13,7 +13,7 @@ test("renders Asia/Tashkent date and time", () => {
   assert.match(svg, /fill="#0d1117"/);
 });
 
-test("combined card includes prompt, response lines, divider, clock", () => {
+test("combined card includes prompt, response lines, divider, clock, and SMIL animations", () => {
   const svg = renderClockSvg("dark", instant, { combined: true });
 
   assert.match(svg, /\$ whoami/);
@@ -22,6 +22,8 @@ test("combined card includes prompt, response lines, divider, clock", () => {
   assert.match(svg, /2026-07-24  23:34:56/);
   assert.match(svg, /Fri · Tashkent, UZ/);
   assert.match(svg, /open for collaboration/);
+  assert.match(svg, /<animate /);
+  assert.match(svg, /repeatCount="indefinite"/);
 });
 
 test("falls back to light theme", () => {

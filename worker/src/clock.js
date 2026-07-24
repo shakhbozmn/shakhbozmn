@@ -107,21 +107,68 @@ function renderCombinedCard(theme, dateText, timeText, weekday) {
 
   const escapedPrompt = escapeXml(PROMPT);
   const escapedLines = RESPONSE_LINES.map(escapeXml);
+  const border = escapeXml(theme.border);
+  const accent = escapeXml(theme.accent);
+  const fg = escapeXml(theme.fg);
+  const dim = escapeXml(theme.dim);
+  const bg = escapeXml(theme.bg);
+  const prompt = escapeXml(theme.prompt);
+  const response = escapeXml(theme.response);
+  const pulse = escapeXml(theme.accent);
+
+  const cursorX = padX + measureText(prompt, 16) + 6;
+  const spinnerX = padX + measureText(RESPONSE_LINES[RESPONSE_LINES.length - 1], 14) + 12;
+  const spinnerY = responseY + lineHeight * 2 - 4;
+  const cursorY = promptY - 4;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="cardTitle cardDesc">
   <title id="cardTitle">Live Tashkent clock and terminal</title>
   <desc id="cardDesc">Terminal whoami output and current Asia/Tashkent date and time</desc>
-  <rect x="0" y="0" width="${width}" height="${height}" rx="14" ry="14" fill="${escapeXml(theme.bg)}" stroke="${escapeXml(theme.border)}" stroke-width="1"/>
-  <text x="${padX}" y="${padY + 16}" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="${escapeXml(theme.dim)}">$ date --time-zone "${escapeXml(TIME_ZONE)}"</text>
-  <text x="${padX}" y="${terminalTop - 6}" font-family="ui-monospace, Menlo, monospace" font-size="14" font-weight="600" fill="${escapeXml(theme.accent)}">shakhbozmn@portfolio</text>
-  <text x="${padX}" y="${promptY}" font-family="ui-monospace, Menlo, monospace" font-size="16" fill="${escapeXml(theme.prompt)}">${escapedPrompt}</text>
-  <text x="${padX}" y="${responseY}" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${escapeXml(theme.response)}">${escapedLines[0]}</text>
-  <text x="${padX}" y="${responseY + lineHeight}" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${escapeXml(theme.response)}">${escapedLines[1]}</text>
-  <text x="${padX}" y="${responseY + lineHeight * 2}" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${escapeXml(theme.response)}">${escapedLines[2]}</text>
-  <line x1="${padX}" x2="${width - padX}" y1="${lastY + 8}" y2="${lastY + 8}" stroke="${escapeXml(theme.border)}" stroke-width="1"/>
-  <text x="${padX}" y="${clockY}" font-family="ui-monospace, Menlo, monospace" font-size="22" font-weight="600" fill="${escapeXml(theme.fg)}">${escapeXml(dateText)}  ${escapeXml(timeText)}</text>
-  <text x="${padX}" y="${clockY + 22}" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="${escapeXml(theme.accent)}">${escapeXml(weekday)} · Tashkent, UZ · open for collaboration</text>
+  <defs>
+    <clipPath id="borderClip">
+      <rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="14" ry="14"/>
+    </clipPath>
+  </defs>
+  <rect x="0" y="0" width="${width}" height="${height}" rx="14" ry="14" fill="${bg}" stroke="${border}" stroke-width="1"/>
+  <g clip-path="url(#borderClip)" stroke="${accent}" stroke-width="2" fill="none" opacity="0.55">
+    <line x1="0" y1="0" x2="14" y2="0">
+      <animate attributeName="x1" from="-14" to="${width}" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="x2" from="0" to="${width + 14}" dur="3s" repeatCount="indefinite"/>
+    </line>
+  </g>
+  <text x="${padX}" y="${padY + 16}" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="${dim}">$ date --time-zone "${escapeXml(TIME_ZONE)}"</text>
+  <text x="${padX}" y="${terminalTop - 6}" font-family="ui-monospace, Menlo, monospace" font-size="14" font-weight="600" fill="${accent}">shakhbozmn@portfolio</text>
+  <text x="${padX}" y="${promptY}" font-family="ui-monospace, Menlo, monospace" font-size="16" fill="${prompt}">${escapedPrompt}</text>
+  <rect x="${cursorX}" y="${cursorY}" width="9" height="18" fill="${pulse}">
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+  <text x="${padX}" y="${responseY}" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${response}">${escapedLines[0]}</text>
+  <text x="${padX}" y="${responseY + lineHeight}" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${response}">${escapedLines[1]}</text>
+  <text x="${padX}" y="${responseY + lineHeight * 2}" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${response}">${escapedLines[2]}</text>
+  <g transform="translate(${spinnerX} ${spinnerY})" font-family="ui-monospace, Menlo, monospace" font-size="14" fill="${accent}">
+    <text>${escapedLines[2] ? ' ' : ''}<tspan>
+      <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.25;1" dur="1s" begin="0s" repeatCount="indefinite"/>|</tspan>
+      <tspan>
+      <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.25;1" dur="1s" begin="0.25s" repeatCount="indefinite"/>/</tspan>
+      <tspan>
+      <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.25;1" dur="1s" begin="0.5s" repeatCount="indefinite"/>-</tspan>
+      <tspan>
+      <animate attributeName="opacity" values="0;0;1" keyTimes="0;0.25;1" dur="1s" begin="0.75s" repeatCount="indefinite"/>\</tspan>
+    </text>
+  </g>
+  <line x1="${padX}" x2="${width - padX}" y1="${lastY + 8}" y2="${lastY + 8}" stroke="${border}" stroke-width="1"/>
+  <text x="${padX}" y="${clockY}" font-family="ui-monospace, Menlo, monospace" font-size="22" font-weight="600" fill="${fg}">${escapeXml(dateText)}  ${escapeXml(timeText)}</text>
+  <circle cx="${padX - 8}" cy="${clockY - 6}" r="4" fill="${accent}">
+    <animate attributeName="opacity" values="1;0.25;1" dur="1s" repeatCount="indefinite"/>
+  </circle>
+  <text x="${padX}" y="${clockY + 22}" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="${accent}">${escapeXml(weekday)} · Tashkent, UZ · open for collaboration</text>
 </svg>`;
 }
+
+function measureText(text, fontSize) {
+  const monospaceWidthRatio = 0.6;
+  return Math.round(String(text).length * fontSize * monospaceWidthRatio);
+}
+
 
 export { escapeXml, partsFor, weekdayFor, TIME_ZONE, RESPONSE_LINES, PROMPT, THEMES };
