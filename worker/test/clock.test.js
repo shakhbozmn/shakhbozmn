@@ -80,8 +80,13 @@ test("returns autoplay preview SVG from /preview with security headers", async (
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   const body = await response.text();
   assert.match(body, /Terminal autoplay preview/);
-  assert.match(body, /repeatCount="1"/);
-  assert.match(body, /fill="freeze"/);
+  assert.match(body, /whoami/);
+  assert.match(body, /stack/);
+  assert.match(body, /projects/);
+  assert.match(body, /Shahboz — product engineer/);
+  assert.match(body, /feathers-board/);
+  assert.match(body, /repeatCount="indefinite"/);
+  assert.match(body, /<rect /);
 });
 
 test("returns autoplay preview SVG from /autoplay alias", async () => {
@@ -94,4 +99,5 @@ test("returns autoplay preview SVG from /autoplay alias", async () => {
   assert.equal(response.headers.get("content-type"), "image/svg+xml; charset=UTF-8");
   const body = await response.text();
   assert.match(body, /fill="#f6f8fa"/);
+  assert.match(body, /whoami/);
 });

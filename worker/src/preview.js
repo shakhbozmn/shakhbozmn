@@ -12,34 +12,37 @@ function escapeXml(value) {
 }
 
 const COMMAND_LINES = [
-  "shakhbozms@github:~$ whoami",
-  "Shahboz — product engineer, Tashkent, UZ.",
-  "Working across product + engineering on Gnezdo,",
-  "a real-estate booking / PMS platform.",
-  "Comfortable owning a feature end to end.",
-  "",
-  "shakhbozms@github:~$ stack",
-  "frontend:  React · React Native · Expo · Next.js",
-  "backend:   Node.js · FeathersJS · MongoDB",
-  "infra:     Docker · Traefik · Portainer · Grafana",
-  "",
-  "shakhbozms@github:~$ projects",
-  "feathers-board         FeathersJS v5 playground",
-  "4work                  two-sided portfolio marketplace",
-  "scrap-fortress         Unity tower defense",
-  "flight-delay-prediction  US flight-delay risk classifier",
-  "",
-  "— tap to play, type, or run stats —",
+  { text: "shakhbozms@github:~$ whoami", kind: "command" },
+  { text: "Shahboz — product engineer, Tashkent, UZ.", kind: "response" },
+  { text: "Working across product + engineering on Gnezdo,", kind: "response" },
+  { text: "a real-estate booking / PMS platform.", kind: "response" },
+  { text: "Comfortable owning a feature end to end.", kind: "response" },
+  { text: "", kind: "blank" },
+  { text: "shakhbozms@github:~$ stack", kind: "command" },
+  { text: "frontend:  React · React Native · Expo · Next.js", kind: "response" },
+  { text: "backend:   Node.js · FeathersJS · MongoDB", kind: "response" },
+  { text: "infra:     Docker · Traefik · Portainer · Grafana", kind: "response" },
+  { text: "", kind: "blank" },
+  { text: "shakhbozms@github:~$ projects", kind: "command" },
+  { text: "feathers-board         FeathersJS v5 playground", kind: "response" },
+  { text: "4work                  two-sided portfolio marketplace", kind: "response" },
+  { text: "scrap-fortress         Unity tower defense", kind: "response" },
+  { text: "flight-delay-prediction  US flight-delay risk classifier", kind: "response" },
+  { text: "", kind: "blank" },
+  { text: "— tap to play, type, or run stats —", kind: "hint" },
 ];
 
 const PALETTE = {
-  light: { bg: "#f6f8fa", border: "#d0d7de", fg: "#0b1220", dim: "#57606a", accent: "#0969da", green: "#1a7f37" },
-  dark: { bg: "#0d1117", border: "#30363d", fg: "#e6edf3", dim: "#8b949e", accent: "#58a6ff", green: "#3fb950" },
+  light: { bg: "#f6f8fa", border: "#d0d7de", fg: "#0b1220", dim: "#57606a", accent: "#0969da", green: "#1a7f37", highlight: "rgba(9,105,218,0.18)" },
+  dark: { bg: "#0d1117", border: "#30363d", fg: "#e6edf3", dim: "#8b949e", accent: "#58a6ff", green: "#3fb950", highlight: "rgba(88,166,255,0.18)" },
 };
 
 function colorFor(theme, key) {
   return (PALETTE[theme] || PALETTE.dark)[key];
 }
+
+const CHAR_WIDTH = 7.8;
+const LINE_HEIGHT = 18;
 
 export function renderPreviewSvg(themeName = "dark") {
   const t = {
@@ -49,77 +52,85 @@ export function renderPreviewSvg(themeName = "dark") {
     dim: colorFor(themeName, "dim"),
     accent: colorFor(themeName, "accent"),
     green: colorFor(themeName, "green"),
+    highlight: colorFor(themeName, "highlight"),
   };
 
-  const width = 760;
-  const lineHeight = 18;
   const padX = 22;
   const padTop = 32;
+  const width = 760;
   const totalLines = COMMAND_LINES.length;
-  const height = padTop + lineHeight * totalLines + 28;
-  const charStep = 0.045;
-  const lineRevealExtra = 0.18;
-  const totalSeconds = (totalLines * lineHeight / 12 + 1).toFixed(2);
+  const height = padTop + LINE_HEIGHT * totalLines + 28;
+  const totalSeconds = 8;
 
   const textElements = [];
-  let lineOffset = 0;
+  const highlightRects = [];
 
   for (let i = 0; i < COMMAND_LINES.length; i++) {
     const line = COMMAND_LINES[i];
-    const y = padTop + lineHeight * i + 4;
-    const isCommand = line.startsWith("shakhbozms@github:~$");
-    const promptPart = isCommand ? "shakhbozms@github" : "";
-    const commandPart = isCommand ? line.slice("shakhbozms@github:~$".length) : line;
+    if (line.kind === "blank") continue;
 
-    const colorFill = isCommand ? t.fg : t.dim;
+    const y = padTop + LINE_HEIGHT * i + 4;
+    const isCommand = line.kind === "command";
+    const isHint = line.kind === "hint";
+
+    let promptText = "";
+    let pathText = "";
+    let commandText = "";
+    let responseText = "";
+
+    if (isCommand) {
+      promptText = "shakhbozms@github";
+      pathText = ":~$";
+      commandText = line.text.slice("shakhbozms@github:~$".length);
+    } else {
+      responseText = line.text;
+    }
+
+    const fillColor = isHint ? t.accent : isCommand ? t.fg : t.dim;
     let text = "";
 
     if (isCommand) {
-      const promptChars = promptPart.length;
-      const promptBegin = (lineOffset * charStep).toFixed(4);
-      const promptEnd = (lineOffset * charStep + 0.01).toFixed(4);
-      const pathBegin = ((lineOffset + promptChars) * charStep).toFixed(4);
-      const pathEnd = ((lineOffset + promptChars) * charStep + 0.01).toFixed(4);
-
-      text += `<tspan fill="${escapeXml(t.green)}" opacity="0">${escapeXml(promptPart)}<animate attributeName="opacity" values="0;0;1" keyTimes="0;${promptBegin};${promptEnd}" dur="${totalSeconds}s" fill="freeze" repeatCount="1"/></tspan>`;
-      text += `<tspan fill="${escapeXml(t.accent)}" opacity="0">:~$<animate attributeName="opacity" values="0;0;1" keyTimes="0;${pathBegin};${pathEnd}" dur="${totalSeconds}s" fill="freeze" repeatCount="1"/></tspan>`;
+      text += `<tspan fill="${escapeXml(t.green)}">${escapeXml(promptText)}</tspan>`;
+      text += `<tspan fill="${escapeXml(t.accent)}">${escapeXml(pathText)}</tspan>`;
       text += ` `;
-
-      for (let c = 0; c < commandPart.length; c++) {
-        const ch = commandPart[c];
-        const at = lineOffset + promptChars + 4 + c;
-        const begin = (at * charStep).toFixed(4);
-        const end = (at * charStep + 0.01).toFixed(4);
-        text += `<tspan opacity="0">${escapeXml(ch)}<animate attributeName="opacity" values="0;0;1" keyTimes="0;${begin};${end}" dur="${totalSeconds}s" fill="freeze" repeatCount="1"/></tspan>`;
-      }
-
-      lineOffset += promptChars + 4 + commandPart.length + lineRevealExtra;
+      text += escapeXml(commandText);
     } else {
-      for (let c = 0; c < line.length; c++) {
-        const ch = line[c];
-        const at = lineOffset + c;
-        const begin = (at * charStep).toFixed(4);
-        const end = (at * charStep + 0.01).toFixed(4);
-        text += `<tspan opacity="0">${escapeXml(ch)}<animate attributeName="opacity" values="0;0;1" keyTimes="0;${begin};${end}" dur="${totalSeconds}s" fill="freeze" repeatCount="1"/></tspan>`;
-      }
-
-      lineOffset += line.length + lineRevealExtra;
+      text += escapeXml(responseText);
     }
 
     textElements.push(
-      `<text x="${padX}" y="${y}" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="${escapeXml(colorFill)}">${text}</text>`
+      `<text x="${padX}" y="${y}" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="${escapeXml(fillColor)}">${text}</text>`
     );
+
+    if (isCommand) {
+      const highlightX = padX + (promptText.length + pathText.length + 1) * CHAR_WIDTH;
+      const highlightY = y - LINE_HEIGHT + 4;
+      const widthChars = commandText.length;
+      const highlightWidth = widthChars * CHAR_WIDTH;
+      highlightRects.push({ x: highlightX, y: highlightY, w: highlightWidth, h: LINE_HEIGHT, lineIndex: i, chars: widthChars });
+    }
   }
 
-  const cursorX = padX + 8;
-  const cursorY = padTop + lineHeight * (totalLines - 1) - 10;
-  const cursorAnim = `<rect x="${cursorX}" y="${cursorY}" width="7" height="14" fill="${escapeXml(t.green)}" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.94;0.95;0.99;1" dur="${totalSeconds}s" fill="freeze" repeatCount="1"/></rect>`;
+  const highlights = highlightRects
+    .map((rect) => {
+      const startAt = (rect.lineIndex / totalLines) * 0.7;
+      const dur = 0.4;
+      const keyTimes = `0;${startAt.toFixed(4)};${(startAt + dur).toFixed(4)};1`;
+      const values = `0;1;1;0`;
+      return `<rect x="${rect.x.toFixed(2)}" y="${rect.y.toFixed(2)}" width="${rect.w.toFixed(2)}" height="${rect.h}" fill="${escapeXml(t.highlight)}" opacity="0"><animate attributeName="opacity" values="${values}" keyTimes="${keyTimes}" dur="${totalSeconds}s" repeatCount="indefinite"/></rect>`;
+    })
+    .join("\n  ");
+
+  const cursorX = padX;
+  const cursorY = padTop + LINE_HEIGHT * 0 - 10;
+  const cursorAnim = `<rect x="${cursorX}" y="${cursorY}" width="7" height="14" fill="${escapeXml(t.green)}"><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.5;0.5;1" dur="1s" repeatCount="indefinite"/></rect>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="previewTitle">
   <title id="previewTitle">Terminal autoplay preview</title>
   <rect x="0" y="0" width="${width}" height="${height}" rx="12" ry="12" fill="${escapeXml(t.bg)}" stroke="${escapeXml(t.border)}" stroke-width="1"/>
-  <text x="${padX}" y="18" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="${escapeXml(t.dim)}">shakhbozms@github — autoplay preview (${totalSeconds}s)</text>
+  <text x="${padX}" y="18" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="${escapeXml(t.dim)}">shakhbozms@github — autoplay preview (loop ${totalSeconds}s)</text>
   ${textElements.join("\n  ")}
+  ${highlights}
   ${cursorAnim}
 </svg>`;
 }
