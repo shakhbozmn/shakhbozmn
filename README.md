@@ -1,12 +1,9 @@
-<div style="border:1px solid #888;border-radius:14px;overflow:hidden;margin-bottom:16px;">
-  <!-- Live card served by Cloudflare Worker. Tap the image to open the interactive version. GitHub Camo may cache images; the live page at /live runs without that cache. -->
-  <a href="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/live?theme=dark" aria-label="Open interactive live card">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/card?theme=dark">
-      <source media="(prefers-color-scheme: light)" srcset="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/card?theme=light">
-      <img alt="Live card — terminal whoami and current Asia/Tashkent time" src="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/card?theme=light" style="display:block;width:100%;" />
-    </picture>
-  </a>
+<div align="center">
+
+[![Open interactive terminal](https://img.shields.io/badge/▶_Open-interactive_terminal-58a6ff?style=for-the-badge&logo=gnometerminal&logoColor=white&labelColor=0d1117)](https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/terminal)
+
+<sub>live typeable terminal served by Cloudflare Worker · <a href="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/live">/live</a> · <a href="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/terminal">/terminal</a></sub>
+
 </div>
 
 ---
@@ -100,7 +97,7 @@ writeups, project deep-dives — the stuff too long for a chat message.
 </details>
 
 <!-- LAST_PING:START -->
-<sub>last transmission: <b>live</b> · served by Cloudflare Worker (Asia/Tashkent) · [open interactive card](https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/live?theme=dark)</sub>
+<sub>last transmission: <b>live</b> · [open interactive terminal](https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/terminal) · Asia/Tashkent</sub>
 <!-- LAST_PING:END -->
 
 </div>
