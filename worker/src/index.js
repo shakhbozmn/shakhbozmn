@@ -1,5 +1,6 @@
 import { renderLivePage } from "./live.js";
 import { renderPreviewSvg } from "./preview.js";
+import { buildPreviewGif } from "./previewGif.js";
 
 const headers = {
   "Cache-Control": "no-store, max-age=0",
@@ -13,6 +14,13 @@ function svgResponse(body) {
   });
 }
 
+function gifResponse(bytes) {
+  return new Response(bytes, {
+    status: 200,
+    headers: { ...headers, "Content-Type": "image/gif" },
+  });
+}
+
 export default {
   async fetch(request) {
     const url = new URL(request.url);
@@ -20,6 +28,10 @@ export default {
 
     if (url.pathname === "/live" || url.pathname === "/terminal") {
       return renderLivePage();
+    }
+
+    if (url.pathname === "/preview.gif" || url.pathname === "/autoplay.gif") {
+      return gifResponse(buildPreviewGif(theme));
     }
 
     if (url.pathname === "/preview" || url.pathname === "/autoplay") {

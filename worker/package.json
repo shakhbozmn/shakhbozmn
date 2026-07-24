@@ -9,7 +9,7 @@
     "bump": "node scripts/bump-cache-version.js"
   },
   "devDependencies": {
+    "gifenc": "^1.0.3",
     "wrangler": "^4.114.0"
   }
 }
-

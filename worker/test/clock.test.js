@@ -101,3 +101,19 @@ test("returns autoplay preview SVG from /autoplay alias", async () => {
   assert.match(body, /fill="#f6f8fa"/);
   assert.match(body, /whoami/);
 });
+
+test("returns autoplay preview GIF from /preview.gif with image/gif header", async () => {
+  const worker = (await import("../src/index.js")).default;
+  const response = await worker.fetch(
+    new Request("https://example.com/preview.gif?theme=dark"),
+  );
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-type"), "image/gif");
+  assert.equal(response.headers.get("cache-control"), "no-store, max-age=0");
+  assert.equal(response.headers.get("x-content-type-options"), "nosniff");
+  const buffer = new Uint8Array(await response.arrayBuffer());
+  const header = String.fromCharCode(...buffer.slice(0, 6));
+  assert.equal(header, "GIF89a");
+  assert.ok(buffer.length > 1000, "gif body should be reasonably sized");
+});
