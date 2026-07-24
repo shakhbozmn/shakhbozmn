@@ -1,0 +1,11 @@
+{
+  "$schema": "https://www.schemastore.org/wrangler.json",
+  "name": "shakhbozmn-profile-clock",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-24",
+  "workers_dev": true,
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

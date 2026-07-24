@@ -314,11 +314,9 @@ def render_now_widget(bg, fg, muted, accent, out_path, now=None):
         Path(f"/tmp/_n_{i:03d}.png").unlink(missing_ok=True)
 
 
-def main():
+def main(static_only=False):
     out_dir = Path("assets")
     out_dir.mkdir(exist_ok=True)
-
-    now_utc = datetime.now(timezone.utc).astimezone(LOCAL_TZ)
 
     # Terminal loop — dark
     render_terminal(
@@ -334,7 +332,15 @@ def main():
         response_color=(95, 95, 100),
         out_path=out_dir / "terminal-loop-light.gif",
     )
-    # Now widget — dark
+
+    if static_only:
+        print("done")
+        return
+
+    now_utc = datetime.now(timezone.utc).astimezone(LOCAL_TZ)
+
+    # Now widget generation is retained for local/manual legacy use only. The
+    # README uses the live Worker endpoint and no longer commits these files.
     render_now_widget(
         bg=(18, 18, 22),
         fg=(220, 220, 228),
@@ -343,7 +349,6 @@ def main():
         out_path=out_dir / "floating-banner-dark.gif",
         now=now_utc,
     )
-    # Now widget — light
     render_now_widget(
         bg=(245, 245, 248),
         fg=(20, 20, 22),
@@ -353,27 +358,16 @@ def main():
         now=now_utc,
     )
 
-    # Update the "last transmission received" date in README. We match the
-    # <b>YYYY-MM-DD</b> inside the <sub>last transmission received: ...</sub>
-    # line — robust to manual edits and will overwrite any prior value.
-    readme = Path("README.md")
-    if readme.exists():
-        text = readme.read_text()
-        date_str = now_utc.strftime("%Y-%m-%d")
-        # Two patterns: explicit placeholder OR any prior date inside that line.
-        new = re.sub(
-            r"(<sub[^>]*>last transmission received: <b>)[\d-]{8,10}(</b>)",
-            rf"\g<1>{date_str}\g<2>",
-            text,
-        )
-        if new != text:
-            readme.write_text(new)
-            print(f"readme: set last transmission date to {date_str}")
-        else:
-            print(f"readme: last transmission date already at {date_str}")
-
     print("done")
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--static-only",
+        action="store_true",
+        help="render terminal GIFs without time-dependent assets or README changes",
+    )
+    main(static_only=parser.parse_args().static_only)

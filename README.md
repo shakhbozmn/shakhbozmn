@@ -1,8 +1,9 @@
 <div style="border:1px solid #888;border-radius:10px;overflow:hidden;margin-bottom:16px;">
+  <!-- Live clock Worker replaces minute-by-minute GIF commits. GitHub Camo may cache image responses. -->
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/floating-banner-dark.gif?v=3">
-    <source media="(prefers-color-scheme: light)" srcset="assets/floating-banner-light.gif?v=3">
-    <img alt="Now widget — date, location, availability" src="assets/floating-banner-light.gif?v=3" style="display:block;width:100%;" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/clock?theme=dark">
+    <source media="(prefers-color-scheme: light)" srcset="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/clock?theme=light">
+    <img alt="Live Tashkent clock" src="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/clock?theme=light" style="display:block;width:100%;" />
   </picture>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/terminal-loop-dark.gif?v=3">
