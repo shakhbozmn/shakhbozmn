@@ -5,9 +5,11 @@
   "scripts": {
     "test": "node --test test/clock.test.js",
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy && node scripts/bump-cache-version.js",
+    "bump": "node scripts/bump-cache-version.js"
   },
   "devDependencies": {
     "wrangler": "^4.114.0"
   }
 }
+
