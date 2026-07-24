@@ -40,16 +40,16 @@ const COMMANDS = [
   },
 ];
 
-const LINE_GAP = 6;
+const LINE_GAP = 3;
 const CELL_W = CELL_WIDTH * SCALE;
 const CELL_H = (GLYPH_HEIGHT + 2) * SCALE;
-const TITLEBAR_H = 22;
-const PAD_X = 16;
-const PAD_TOP = TITLEBAR_H + 14;
-const FRAME_DELAY_MS = 110;
-const TYPE_STEP_FRAMES = 3;
-const READ_STEP_FRAMES = 18;
-const FREEZE_STEP_FRAMES = 80;
+const TITLEBAR_H = 16;
+const PAD_X = 10;
+const PAD_TOP = TITLEBAR_H + 6;
+const FRAME_DELAY_MS = 130;
+const TYPE_STEP_FRAMES = 2;
+const READ_STEP_FRAMES = 8;
+const FREEZE_STEP_FRAMES = 24;
 const PALETTE_BYTES = 4;
 
 function makeFrameContext(width, height) {
@@ -90,11 +90,10 @@ function strokeRect(ctx, x, y, w, h, color) {
 
 function drawTitlebar(ctx, theme) {
   ctx.fillRect(0, 0, ctx.width, TITLEBAR_H, theme.titlebar);
-  // macOS traffic-light dots
-  const dotR = 5;
-  const dotY = TITLEBAR_H / 2;
-  const dotXStart = 12;
-  const dotGap = 18;
+  const dotR = 3;
+  const dotY = Math.floor(TITLEBAR_H / 2);
+  const dotXStart = 7;
+  const dotGap = 10;
   for (let i = 0; i < 3; i++) {
     const cx = dotXStart + i * dotGap;
     const cy = dotY;
@@ -109,7 +108,7 @@ function drawTitlebar(ctx, theme) {
   }
   const title = "shakhbozms@github — zsh — 80x24";
   const titleW = textWidth(title);
-  drawText(ctx, title, Math.floor((ctx.width - titleW) / 2), 6, theme.dim);
+  drawText(ctx, title, Math.floor((ctx.width - titleW) / 2), 3, theme.dim);
   ctx.fillRect(0, TITLEBAR_H, ctx.width, 1, theme.border);
 }
 
@@ -132,13 +131,13 @@ function heightFor(now) {
     (acc, cmd) => acc + 1 + (cmd.outputFn ? cmd.outputFn(now).length : cmd.output.length),
     0,
   );
-  return PAD_TOP + lineCount * (CELL_H + LINE_GAP) + 12;
+  return PAD_TOP + lineCount * (CELL_H + LINE_GAP) + 8;
 }
 
 export function buildPreviewGif(themeName = "dark", now = new Date()) {
   const theme = PALETTE[themeName] || PALETTE.dark;
   const gif = GIFEncoder();
-  const width = 600;
+  const width = 520;
   const height = heightFor(now);
   for (const rgba of buildFrames(theme, now, width, height)) {
     const palette = quantize(rgba, 32);
@@ -175,9 +174,17 @@ function buildFrames(theme, now, width, height) {
     return ctx;
   }
 
+  // Lead frames showing whoami already typed and its responses printed.
+  for (let i = 0; i < 6; i++) {
+    const ctx = newFrame();
+    drawAllUpTo(ctx, theme, yLines, 5);
+    drawCursor(ctx, theme, PAD_X, yLines[4].y, (i % 2) === 0);
+    frames.push(ctx.rgba);
+  }
+
   for (let i = 0; i < yLines.length; i++) {
     const line = yLines[i];
-    if (line.type === "command-prompt") {
+    if (line.type === "command-prompt" && i === 5) {
       const cmd = line.cmd;
       const totalChars = cmd.cmd.length;
 
@@ -198,7 +205,7 @@ function buildFrames(theme, now, width, height) {
         drawCursor(ctx, theme, fullCmdX, line.y, (frames.length % 2) === 0);
         frames.push(ctx.rgba);
       }
-    } else if (line.type === "response") {
+    } else if (line.type === "response" && i >= 5) {
       const ctx = newFrame();
       drawAllUpTo(ctx, theme, yLines, i + 1);
       drawCursor(ctx, theme, PAD_X, line.y, (frames.length % 2) === 0);

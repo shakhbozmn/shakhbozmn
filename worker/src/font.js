@@ -6,7 +6,7 @@ export const GLYPH_HEIGHT = 9;
 export const GLYPH_WIDTH = 7;
 export const CELL_WIDTH = 8;
 export const CELL_HEIGHT = 11;
-export const SCALE = 2;
+export const SCALE = 1;
 
 const _ = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 

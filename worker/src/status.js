@@ -89,7 +89,7 @@ export function statusLinesFor(date) {
   const hour = Number(parts.hour);
   const w = statusForHour(hour);
   return [
-    `local: ${parts.weekday} ${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute} · ${TIME_ZONE}`,
+    `${parts.weekday} ${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute} · ${TIME_ZONE}`,
     `▌ ${w.header}`,
     `↳ ${w.body}`,
     w.mood,
