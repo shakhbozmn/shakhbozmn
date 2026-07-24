@@ -1,7 +1,7 @@
-import gifenc from "gifenc";
-const { GIFEncoder, quantize, applyPalette } = gifenc;
-import { CELL_WIDTH, GLYPH_HEIGHT, SCALE, drawText, textWidth } from "./font.js";
-import { WHOAMI_LINES, statusHourFor, statusLinesFor } from "./status.js";
+import gifenc from 'gifenc'
+const { GIFEncoder, quantize, applyPalette } = gifenc
+import { CELL_WIDTH, CELL_HEIGHT, drawText, textWidth } from './font.js'
+import { WHOAMI_LINES, statusHourFor, statusLinesFor } from './status.js'
 
 const PALETTE = {
   light: {
@@ -14,7 +14,7 @@ const PALETTE = {
     green: [26, 127, 55],
     red: [255, 95, 86],
     yellow: [255, 189, 46],
-    dotGreen: [39, 201, 63],
+    dotGreen: [39, 201, 63]
   },
   dark: {
     bg: [30, 30, 32],
@@ -26,206 +26,228 @@ const PALETTE = {
     green: [63, 185, 80],
     red: [255, 95, 86],
     yellow: [255, 189, 46],
-    dotGreen: [39, 201, 63],
-  },
-};
+    dotGreen: [39, 201, 63]
+  }
+}
 
 const COMMANDS = [
-  { prompt: "shakhbozms@github", path: ":~$", cmd: "whoami", output: WHOAMI_LINES },
+  { prompt: 'shakhbozms@github', path: ':~$', cmd: 'whoami', output: WHOAMI_LINES },
   {
-    prompt: "shakhbozms@github",
-    path: ":~$",
-    cmd: "status",
-    outputFn: (now) => statusLinesFor(now),
-  },
-];
+    prompt: 'shakhbozms@github',
+    path: ':~$',
+    cmd: 'status',
+    outputFn: (now) => statusLinesFor(now)
+  }
+]
 
-const LINE_GAP = 3;
-const CELL_W = CELL_WIDTH * SCALE;
-const CELL_H = (GLYPH_HEIGHT + 2) * SCALE;
-const TITLEBAR_H = 16;
-const PAD_X = 10;
-const PAD_TOP = TITLEBAR_H + 6;
-const FRAME_DELAY_MS = 130;
-const TYPE_STEP_FRAMES = 2;
-const READ_STEP_FRAMES = 8;
-const FREEZE_STEP_FRAMES = 24;
-const PALETTE_BYTES = 4;
+const LINE_GAP = 4
+const CELL_W = CELL_WIDTH
+const CELL_H = CELL_HEIGHT
+const TITLEBAR_H = Math.round(CELL_HEIGHT * 1.4)
+const PAD_X = 12
+const PAD_TOP = TITLEBAR_H + 10
+const FRAME_DELAY_MS = 130
+const TYPE_STEP_FRAMES = 2
+const READ_STEP_FRAMES = 8
+const FREEZE_STEP_FRAMES = 24
+const PALETTE_BYTES = 4
 
 function makeFrameContext(width, height) {
-  const rgba = new Uint8Array(width * height * PALETTE_BYTES);
+  const rgba = new Uint8Array(width * height * PALETTE_BYTES)
   return {
     width,
     height,
     rgba,
     fillRect(x, y, w, h, color) {
-      const [r, g, b] = color;
-      const x0 = Math.max(0, Math.floor(x));
-      const y0 = Math.max(0, Math.floor(y));
-      const x1 = Math.min(width, Math.floor(x + w));
-      const y1 = Math.min(height, Math.floor(y + h));
+      const [r, g, b] = color
+      const x0 = Math.max(0, Math.floor(x))
+      const y0 = Math.max(0, Math.floor(y))
+      const x1 = Math.min(width, Math.floor(x + w))
+      const y1 = Math.min(height, Math.floor(y + h))
       for (let yy = y0; yy < y1; yy++) {
         for (let xx = x0; xx < x1; xx++) {
-          const idx = (yy * width + xx) * PALETTE_BYTES;
-          rgba[idx] = r;
-          rgba[idx + 1] = g;
-          rgba[idx + 2] = b;
-          rgba[idx + 3] = 255;
-        }
-      }
-    },
-  };
-}
-
-function fill(ctx, color) {
-  ctx.fillRect(0, 0, ctx.width, ctx.height, color);
-}
-
-function strokeRect(ctx, x, y, w, h, color) {
-  ctx.fillRect(x, y, w, 1, color);
-  ctx.fillRect(x, y + h - 1, w, 1, color);
-  ctx.fillRect(x, y, 1, h, color);
-  ctx.fillRect(x + w - 1, y, 1, h, color);
-}
-
-function drawTitlebar(ctx, theme) {
-  ctx.fillRect(0, 0, ctx.width, TITLEBAR_H, theme.titlebar);
-  const dotR = 3;
-  const dotY = Math.floor(TITLEBAR_H / 2);
-  const dotXStart = 7;
-  const dotGap = 10;
-  for (let i = 0; i < 3; i++) {
-    const cx = dotXStart + i * dotGap;
-    const cy = dotY;
-    const [r, g, b] = [theme.red, theme.yellow, theme.dotGreen][i];
-    for (let py = -dotR; py <= dotR; py++) {
-      for (let px = -dotR; px <= dotR; px++) {
-        if (px * px + py * py <= dotR * dotR) {
-          ctx.fillRect(cx + px, cy + py, 1, 1, [r, g, b]);
+          const idx = (yy * width + xx) * PALETTE_BYTES
+          rgba[idx] = r
+          rgba[idx + 1] = g
+          rgba[idx + 2] = b
+          rgba[idx + 3] = 255
         }
       }
     }
   }
-  const title = "shakhbozms@github — zsh — 80x24";
-  const titleW = textWidth(title);
-  drawText(ctx, title, Math.floor((ctx.width - titleW) / 2), 3, theme.dim);
-  ctx.fillRect(0, TITLEBAR_H, ctx.width, 1, theme.border);
+}
+
+function fill(ctx, color) {
+  ctx.fillRect(0, 0, ctx.width, ctx.height, color)
+}
+
+function strokeRect(ctx, x, y, w, h, color) {
+  ctx.fillRect(x, y, w, 1, color)
+  ctx.fillRect(x, y + h - 1, w, 1, color)
+  ctx.fillRect(x, y, 1, h, color)
+  ctx.fillRect(x + w - 1, y, 1, h, color)
+}
+
+function drawDot(ctx, cx, cy, radius, color) {
+  const r2 = radius * radius
+  const x0 = Math.max(0, Math.floor(cx - radius - 1))
+  const x1 = Math.min(ctx.width, Math.ceil(cx + radius + 1))
+  const y0 = Math.max(0, Math.floor(cy - radius - 1))
+  const y1 = Math.min(ctx.height, Math.ceil(cy + radius + 1))
+  const SAMPLES = 4
+  for (let y = y0; y < y1; y++) {
+    for (let x = x0; x < x1; x++) {
+      let hits = 0
+      for (let sy = 0; sy < SAMPLES; sy++) {
+        for (let sx = 0; sx < SAMPLES; sx++) {
+          const px = x + (sx + 0.5) / SAMPLES - cx
+          const py = y + (sy + 0.5) / SAMPLES - cy
+          if (px * px + py * py <= r2) hits++
+        }
+      }
+      if (hits >= SAMPLES / 2) ctx.fillRect(x, y, 1, 1, color)
+    }
+  }
+}
+
+function drawTitlebar(ctx, theme) {
+  ctx.fillRect(0, 0, ctx.width, TITLEBAR_H, theme.titlebar)
+  const dotY = Math.floor(TITLEBAR_H / 2)
+  const dotXStart = 12
+  const dotGap = 16
+  const dotRadius = 5
+  for (let i = 0; i < 3; i++) {
+    const cx = dotXStart + i * dotGap
+    drawDot(ctx, cx, dotY, dotRadius, [theme.red, theme.yellow, theme.dotGreen][i])
+  }
+  const title = 'shakhbozms@github — zsh — 80x24'
+  const titleW = textWidth(title)
+  const titleY = Math.floor((TITLEBAR_H - CELL_HEIGHT) / 2)
+  drawText(ctx, title, Math.floor((ctx.width - titleW) / 2), titleY, theme.dim, theme.titlebar)
+  ctx.fillRect(0, TITLEBAR_H, ctx.width, 1, theme.border)
 }
 
 function drawCommandLine(ctx, theme, promptText, pathText, typedCmd, y) {
-  const promptEndX = PAD_X + textWidth(promptText);
-  drawText(ctx, promptText, PAD_X, y, theme.green);
-  drawText(ctx, pathText, promptEndX, y, theme.accent);
-  const cmdStartX = promptEndX + textWidth(pathText) + CELL_W;
-  drawText(ctx, typedCmd, cmdStartX, y, theme.fg);
-  return cmdStartX + textWidth(typedCmd);
+  const promptEndX = PAD_X + textWidth(promptText)
+  drawText(ctx, promptText, PAD_X, y, theme.green, theme.bg)
+  drawText(ctx, pathText, promptEndX, y, theme.accent, theme.bg)
+  const cmdStartX = promptEndX + textWidth(pathText) + CELL_W
+  drawText(ctx, typedCmd, cmdStartX, y, theme.fg, theme.bg)
+  return cmdStartX + textWidth(typedCmd)
 }
 
 function drawCursor(ctx, theme, x, y, visible) {
-  if (!visible) return;
-  ctx.fillRect(x, y, 2, CELL_H, theme.fg);
+  if (!visible) return
+  ctx.fillRect(x, y, 2, CELL_H, theme.fg)
 }
 
 function heightFor(now) {
   const lineCount = COMMANDS.reduce(
     (acc, cmd) => acc + 1 + (cmd.outputFn ? cmd.outputFn(now).length : cmd.output.length),
-    0,
-  );
-  return PAD_TOP + lineCount * (CELL_H + LINE_GAP) + 8;
+    0
+  )
+  return PAD_TOP + lineCount * (CELL_H + LINE_GAP) + 8
 }
 
-export function buildPreviewGif(themeName = "dark", now = new Date()) {
-  const theme = PALETTE[themeName] || PALETTE.dark;
-  const gif = GIFEncoder();
-  const width = 520;
-  const height = heightFor(now);
+export function buildPreviewGif(themeName = 'dark', now = new Date()) {
+  const theme = PALETTE[themeName] || PALETTE.dark
+  const gif = GIFEncoder()
+  const width = 920
+  const height = heightFor(now)
   for (const rgba of buildFrames(theme, now, width, height)) {
-    const palette = quantize(rgba, 32);
-    const index = applyPalette(rgba, palette);
-    gif.writeFrame(index, width, height, { palette, delay: FRAME_DELAY_MS, transparent: false });
+    const palette = quantize(rgba, 32)
+    const index = applyPalette(rgba, palette)
+    gif.writeFrame(index, width, height, { palette, delay: FRAME_DELAY_MS, transparent: false })
   }
-  gif.finish();
-  return gif.bytesView();
+  gif.finish()
+  return gif.bytesView()
 }
 
 function buildFrames(theme, now, width, height) {
-  const frames = [];
-  const yLines = [];
+  const frames = []
+  const yLines = []
 
   for (const cmd of COMMANDS) {
-    yLines.push({ type: "command-prompt", cmd });
-    const output = cmd.outputFn ? cmd.outputFn(now) : cmd.output;
+    yLines.push({ type: 'command-prompt', cmd })
+    const output = cmd.outputFn ? cmd.outputFn(now) : cmd.output
     for (const line of output) {
-      yLines.push({ type: "response", text: line });
+      yLines.push({ type: 'response', text: line })
     }
   }
 
-  let cursorY = PAD_TOP;
+  let cursorY = PAD_TOP
   for (const ln of yLines) {
-    ln.y = cursorY;
-    cursorY += CELL_H + LINE_GAP;
+    ln.y = cursorY
+    cursorY += CELL_H + LINE_GAP
   }
 
   function newFrame() {
-    const ctx = makeFrameContext(width, height);
-    fill(ctx, theme.bg);
-    strokeRect(ctx, 0, 0, ctx.width - 1, ctx.height - 1, theme.border);
-    drawTitlebar(ctx, theme);
-    return ctx;
+    const ctx = makeFrameContext(width, height)
+    fill(ctx, theme.bg)
+    strokeRect(ctx, 0, 0, ctx.width - 1, ctx.height - 1, theme.border)
+    drawTitlebar(ctx, theme)
+    return ctx
   }
 
   for (let i = 0; i < yLines.length; i++) {
-    const line = yLines[i];
-    if (line.type === "command-prompt") {
-      const cmd = line.cmd;
-      const totalChars = cmd.cmd.length;
+    const line = yLines[i]
+    if (line.type === 'command-prompt') {
+      const cmd = line.cmd
+      const totalChars = cmd.cmd.length
 
       for (let typed = 0; typed <= totalChars; typed++) {
         for (let s = 0; s < TYPE_STEP_FRAMES; s++) {
-          const ctx = newFrame();
-          drawAllUpTo(ctx, theme, yLines, i);
-          const fullCmdX = drawCommandLine(ctx, theme, cmd.prompt, cmd.path, cmd.cmd.substring(0, typed), line.y);
-          drawCursor(ctx, theme, fullCmdX, line.y, (frames.length % 2) === 0);
-          frames.push(ctx.rgba);
+          const ctx = newFrame()
+          drawAllUpTo(ctx, theme, yLines, i)
+          const fullCmdX = drawCommandLine(
+            ctx,
+            theme,
+            cmd.prompt,
+            cmd.path,
+            cmd.cmd.substring(0, typed),
+            line.y
+          )
+          drawCursor(ctx, theme, fullCmdX, line.y, frames.length % 2 === 0)
+          frames.push(ctx.rgba)
         }
       }
 
       for (let r = 0; r < READ_STEP_FRAMES; r++) {
-        const ctx = newFrame();
-        drawAllUpTo(ctx, theme, yLines, i + 1);
-        const fullCmdX = drawCommandLine(ctx, theme, cmd.prompt, cmd.path, cmd.cmd, line.y);
-        drawCursor(ctx, theme, fullCmdX, line.y, (frames.length % 2) === 0);
-        frames.push(ctx.rgba);
+        const ctx = newFrame()
+        drawAllUpTo(ctx, theme, yLines, i + 1)
+        const fullCmdX = drawCommandLine(ctx, theme, cmd.prompt, cmd.path, cmd.cmd, line.y)
+        drawCursor(ctx, theme, fullCmdX, line.y, frames.length % 2 === 0)
+        frames.push(ctx.rgba)
       }
-    } else if (line.type === "response") {
-      const ctx = newFrame();
-      drawAllUpTo(ctx, theme, yLines, i + 1);
-      const cursorX = PAD_X + textWidth(line.text) + 1;
-      drawCursor(ctx, theme, cursorX, line.y, (frames.length % 2) === 0);
-      frames.push(ctx.rgba);
+    } else if (line.type === 'response') {
+      const ctx = newFrame()
+      drawAllUpTo(ctx, theme, yLines, i + 1)
+      const cursorX = PAD_X + textWidth(line.text) + 1
+      drawCursor(ctx, theme, cursorX, line.y, frames.length % 2 === 0)
+      frames.push(ctx.rgba)
     }
   }
 
   // Freeze: all content on screen, cursor at the very end of the last line.
-  const lastLine = yLines[yLines.length - 1];
-  const lastCursorX = PAD_X + textWidth(lastLine.text || "") + 1;
+  const lastLine = yLines[yLines.length - 1]
+  const lastCursorX = PAD_X + textWidth(lastLine.text || '') + 1
   for (let i = 0; i < FREEZE_STEP_FRAMES; i++) {
-    const ctx = newFrame();
-    drawAllUpTo(ctx, theme, yLines, yLines.length);
-    drawCursor(ctx, theme, lastCursorX, lastLine.y, (i % 2) === 0);
-    frames.push(ctx.rgba);
+    const ctx = newFrame()
+    drawAllUpTo(ctx, theme, yLines, yLines.length)
+    drawCursor(ctx, theme, lastCursorX, lastLine.y, i % 2 === 0)
+    frames.push(ctx.rgba)
   }
 
-  return frames;
+  return frames
 }
 
 function drawAllUpTo(ctx, theme, yLines, upTo) {
   for (let i = 0; i < upTo; i++) {
-    const ln = yLines[i];
-    if (ln.type === "command-prompt") {
-      drawCommandLine(ctx, theme, ln.cmd.prompt, ln.cmd.path, ln.cmd.cmd, ln.y);
-    } else if (ln.type === "response") {
-      drawText(ctx, ln.text, PAD_X, ln.y, theme.dim);
+    const ln = yLines[i]
+    if (ln.type === 'command-prompt') {
+      drawCommandLine(ctx, theme, ln.cmd.prompt, ln.cmd.path, ln.cmd.cmd, ln.y)
+    } else if (ln.type === 'response') {
+      drawText(ctx, ln.text, PAD_X, ln.y, theme.dim, theme.bg)
     }
   }
 }

@@ -2,9 +2,9 @@
 
 <a href="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/terminal" aria-label="Open interactive terminal">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/preview.gif?theme=dark&v=15">
-    <source media="(prefers-color-scheme: light)" srcset="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/preview.gif?theme=light&v=15">
-    <img alt="Live terminal autoplay preview" src="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/preview.gif?theme=dark&v=15" style="display:block;width:100%;max-width:760px;border-radius:12px;" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/preview.gif?theme=dark&v=21">
+    <source media="(prefers-color-scheme: light)" srcset="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/preview.gif?theme=light&v=21">
+    <img alt="Live terminal autoplay preview" src="https://shakhbozmn-profile-clock.shakhbozmn.workers.dev/preview.gif?theme=dark&v=21" style="display:block;width:100%;max-width:760px;border-radius:12px;" />
   </picture>
 </a>
 

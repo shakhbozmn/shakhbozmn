@@ -6,9 +6,11 @@
     "test": "node --test test/clock.test.js",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy && node scripts/bump-cache-version.js",
-    "bump": "node scripts/bump-cache-version.js"
+    "bump": "node scripts/bump-cache-version.js",
+    "build-font-atlas": "node scripts/build-font-atlas.mjs"
   },
   "devDependencies": {
+    "@napi-rs/canvas": "^1.0.2",
     "gifenc": "^1.0.3",
     "wrangler": "^4.114.0"
   }

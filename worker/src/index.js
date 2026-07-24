@@ -16,6 +16,12 @@ export default {
     }
 
     if (url.pathname === "/preview.gif" || url.pathname === "/autoplay.gif") {
+      if (request.method === "HEAD") {
+        return new Response(null, {
+          status: 200,
+          headers: { ...headers, "Content-Type": "image/gif", "Content-Length": "900000" },
+        });
+      }
       return new Response(buildPreviewGif(theme), {
         status: 200,
         headers: { ...headers, "Content-Type": "image/gif" },
