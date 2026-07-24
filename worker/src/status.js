@@ -7,29 +7,69 @@ export const WHOAMI_LINES = [
   "Building product and engineering end to end.",
 ];
 
-const STATUS_WINDOWS = [
-  { start: 6, end: 9, line: "waking up · espresso · triage inbox" },
-  { start: 9, end: 11, line: "morning stack · review PRs, plan the day" },
-  { start: 11, end: 13, line: "deep work · heads down on Gnezdo features" },
-  { start: 13, end: 14, line: "lunch + thinking · long walk, no meetings" },
-  { start: 14, end: 18, line: "shipping · builds, deploys, dashboards" },
-  { start: 18, end: 21, line: "evening review · wrap up, write notes" },
-  { start: 21, end: 24, line: "side project · Gnezdo Travel experiments" },
-  { start: 0, end: 6, line: "quiet hours · reading, light tinkering" },
+export const STATUS_WINDOWS = [
+  {
+    start: 6, end: 9,
+    header: "wake-up window · 06:00–09:00",
+    body: "espresso, triage, sketch the day",
+    mood: "~ \"plan less, ship more\"",
+  },
+  {
+    start: 9, end: 11,
+    header: "morning stack · 09:00–11:00",
+    body: "PR review, docs, align the team",
+    mood: "~ \"make small things work first\"",
+  },
+  {
+    start: 11, end: 13,
+    header: "deep work · 11:00–13:00",
+    body: "heads down on Gnezdo features",
+    mood: "~ \"tab closed, focus on\"",
+  },
+  {
+    start: 13, end: 14,
+    header: "lunch + thinking · 13:00–14:00",
+    body: "long walk, no meetings, no messages",
+    mood: "~ \"the answer walks with you\"",
+  },
+  {
+    start: 14, end: 18,
+    header: "shipping zone · 14:00–18:00",
+    body: "builds, deploys, dashboards green",
+    mood: "~ \"ship it and iterate\"",
+  },
+  {
+    start: 18, end: 21,
+    header: "evening review · 18:00–21:00",
+    body: "wrap up, write notes, plan tomorrow",
+    mood: "~ \"tomorrow is already on the runway\"",
+  },
+  {
+    start: 21, end: 24,
+    header: "side project · 21:00–00:00",
+    body: "Gnezdo Travel experiments, sketches",
+    mood: "~ \"the fun work happens after the fun work\"",
+  },
+  {
+    start: 0, end: 6,
+    header: "quiet hours · 00:00–06:00",
+    body: "reading, light tinkering, sleeping",
+    mood: "~ \"tomorrow is a different problem\"",
+  },
 ];
 
 export function statusForHour(hour) {
   for (const window of STATUS_WINDOWS) {
     if (window.end <= window.start) {
-      if (hour >= window.start || hour < window.end) return window.line;
+      if (hour >= window.start || hour < window.end) return window;
     } else if (hour >= window.start && hour < window.end) {
-      return window.line;
+      return window;
     }
   }
-  return STATUS_WINDOWS[STATUS_WINDOWS.length - 1].line;
+  return STATUS_WINDOWS[STATUS_WINDOWS.length - 1];
 }
 
-export function statusDateLine(date = new Date()) {
+export function statusLinesFor(date) {
   const fmt = new Intl.DateTimeFormat("en-GB", {
     timeZone: TIME_ZONE,
     weekday: "short",
@@ -46,7 +86,14 @@ export function statusDateLine(date = new Date()) {
       .filter((p) => p.type !== "literal")
       .map((p) => [p.type, p.value]),
   );
-  return `${parts.weekday} ${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}`;
+  const hour = Number(parts.hour);
+  const w = statusForHour(hour);
+  return [
+    `local: ${parts.weekday} ${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute} · ${TIME_ZONE}`,
+    `▌ ${w.header}`,
+    `↳ ${w.body}`,
+    w.mood,
+  ];
 }
 
 export function statusHourFor(date = new Date()) {

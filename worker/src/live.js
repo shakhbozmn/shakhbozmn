@@ -205,9 +205,12 @@ const COMMANDS = {
         .map((p) => [p.type, p.value]),
     );
     const hour = Number(parts.hour);
+    const w = statusForHour(hour);
     return [
       "local: " + statusDateLine(now) + " · " + TIME_ZONE,
-      statusForHour(hour),
+      "▌ " + w.header,
+      "↳ " + w.body,
+      w.mood,
     ].join("\\n");
   },
   about() {

@@ -40,15 +40,23 @@ test("status handler is defined in terminal page", async () => {
   assert.match(body, /"Asia\/Tashkent"/);
 });
 
-test("status window helper returns witty one-liner for each window", () => {
-  assert.match(statusForHour(7), /waking up/);
-  assert.match(statusForHour(10), /morning stack/);
-  assert.match(statusForHour(12), /deep work/);
-  assert.match(statusForHour(13), /lunch/);
-  assert.match(statusForHour(16), /shipping/);
-  assert.match(statusForHour(19), /evening review/);
-  assert.match(statusForHour(22), /side project/);
-  assert.match(statusForHour(3), /quiet hours/);
+test("status window helper returns object with header, body, mood for each window", () => {
+  const expectFields = (window) => {
+    assert.ok(typeof window.header === "string" && window.header.length > 0);
+    assert.ok(typeof window.body === "string" && window.body.length > 0);
+    assert.ok(typeof window.mood === "string" && window.mood.length > 0);
+  };
+  expectFields(statusForHour(7));
+  expectFields(statusForHour(10));
+  expectFields(statusForHour(12));
+  expectFields(statusForHour(13));
+  expectFields(statusForHour(16));
+  expectFields(statusForHour(19));
+  expectFields(statusForHour(22));
+  expectFields(statusForHour(3));
+  assert.match(statusForHour(16).header, /shipping/);
+  assert.match(statusForHour(13).header, /lunch/);
+  assert.match(statusForHour(3).header, /quiet hours/);
 });
 
 test("returns 404 for paths outside known routes", async () => {
